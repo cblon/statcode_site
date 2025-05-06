@@ -44,7 +44,7 @@ const config = tseslint.config(
     ]
   },
   // Flat configuration
-  eslint.configs.recommended,
+  // eslint.configs.recommended,
   tseslint.configs.recommended,
   ...compatConfigs,
   ...tailwindcss.configs['flat/recommended'],

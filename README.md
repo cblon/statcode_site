@@ -44,18 +44,7 @@ docker compose up -d
 
 1.  Install PostgreSQL via Homebrew, Chocolatey or download it from the [website](https://www.postgresql.org/download/).
 
-```bash
-brew install postgresql
-```
 
-2.  Add an initial user.
-
-```bash
-sudo -u postgres psql
-CREATE USER postgres WITH PASSWORD 'password';
-ALTER USER postgres WITH SUPERUSER;
-\q
-```
 
 3.  Update `.env` with your database credentials.
 

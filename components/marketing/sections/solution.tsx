@@ -28,7 +28,7 @@ export function Solution(): React.JSX.Element {
             <div className="mx-auto xl:container xl:rounded-xl xl:bg-neutral-50 xl:p-6 dark:xl:bg-neutral-900">
              
              
-              <div className="grid grid-cols-2 gap-2 h-full">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 h-full">
 
               <div className='flex flex-col gap-2'>
 

@@ -86,9 +86,19 @@ export const MENU_LINKS = [
       }
     ]
   },
+  // {
+  //   title: 'Pricing',
+  //   href: Routes.Pricing,
+  //   external: false
+  // },
   {
-    title: 'Pricing',
-    href: Routes.Pricing,
+    title: 'Problems We Solve',
+     href: '#',
+    external: false
+  },
+  {
+    title: 'Docs',
+    href: Routes.Docs,
     external: false
   },
   {
@@ -100,7 +110,12 @@ export const MENU_LINKS = [
     title: 'Story',
     href: Routes.Story,
     external: false
-  }
+  },
+  {
+    title: 'Contact',
+    href: Routes.Contact,
+    external: false
+  },
 ];
 
 export const FOOTER_LINKS = [

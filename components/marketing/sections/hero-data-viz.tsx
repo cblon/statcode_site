@@ -58,7 +58,7 @@ export default function ProgramDesignandEvaluation() {
    
             <div className="flex min-h-fit flex-col items-center justify-center px-2 my-32 gap-4 bg-white dark:bg-background">
               <h1 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white">
-                Seven Mistakes in Program Design and Evaluation
+                Seven Mistakes in Data Design and Evaluation
               </h1>
               <div className="w-full max-w-6xl flex flex-col lg:flex-row gap-2 items-center">
                 <div className="w-full lg:w-2/3 lg:h-[600px] relative">

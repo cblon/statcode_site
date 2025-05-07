@@ -1,6 +1,6 @@
 {
-  "name": "Acme",
-  "short_name": "Acme",
+  "name": "Statcode",
+  "short_name": "Statcode",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

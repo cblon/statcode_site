@@ -18,7 +18,7 @@ export const mistakes: Mistake[] = [
     description:
       "Programs often skip thorough needs evaluations before diving into design, leading to interventions that miss critical contextual factors.",
     impacts: [
-      "Misaligned program objectives",
+      "Misaligned data objectives",
       "Wasted resources on unnecessary interventions",
       "Failure to address root causes",
     ],

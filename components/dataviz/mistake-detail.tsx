@@ -22,7 +22,7 @@ export function MistakeDetail({ mistake, onClose }: MistakeDetailProps) {
   if (!mistake) {
     return (
       <div className="bg-gray-50 rounded-lg p-6 shadow-md h-full dark:bg-gray-950  dark:border-white">
-        <h2 className="text-xl font-bold text-gray-800 mb-4 dark:text-white">Program Design Mistakes</h2>
+        <h2 className="text-xl font-bold text-gray-800 mb-4 dark:text-white">Data Design Mistakes</h2>
         <p className="text-gray-600 dark:text-white">
           Select a segment from the chart to learn about common mistakes in program design and evaluation.
         </p>

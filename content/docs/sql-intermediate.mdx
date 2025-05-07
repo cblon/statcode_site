@@ -1,0 +1,482 @@
+---
+title: Intermediate SQL
+description: Learn how to use the  Intermediate SQL statement to query data from a database using user_engagement dataset
+---
+
+
+## SQL Aggregate Functions
+
+Summarize data using functions like `SUM()`, `AVG()`.
+
+```sql
+SELECT COUNT(*) AS total_sessions,
+       SUM(clicks) AS total_clicks,
+       AVG(time_spent_minutes) AS avg_time
+FROM user_engagement;  -- Aggregates data to get session count, total clicks, and average time spent
+```
+
+| total_sessions | total_clicks | avg_time |
+|----------------|--------------|----------|
+| 50             | 1200         | 20.3     |
+
+## SQL Min and Max
+
+Find minimum and maximum values with `MIN()` and `MAX()`.
+
+```sql
+SELECT MIN(time_spent_minutes) AS min_time, 
+       MAX(time_spent_minutes) AS max_time
+FROM user_engagement;  -- Shows the minimum and maximum time spent
+```
+
+| min_time | max_time |
+|----------|----------|
+| 10       | 60       |
+
+## SQL Count
+
+Count records using `COUNT()`.
+
+```sql
+SELECT COUNT(*) FROM user_engagement;  -- Counts all rows in the table
+```
+
+| COUNT(*) |
+|----------|
+| 50       |
+
+## SQL Sum
+
+Add numeric data using `SUM()`.
+
+```sql
+SELECT SUM(clicks) FROM user_engagement;  -- Calculates total number of clicks
+```
+
+| SUM(clicks) |
+|-------------|
+| 1200        |
+
+## SQL Avg
+
+Find average values with `AVG()`.
+
+```sql
+SELECT AVG(time_spent_minutes) FROM user_engagement;  -- Finds average time spent per session
+```
+
+| AVG(time_spent_minutes) |
+|-------------------------|
+| 20.3                    |
+
+## SQL Like
+
+Pattern matching with `LIKE`.
+
+```sql
+SELECT * FROM user_engagement 
+WHERE region LIKE 'A%';  -- Selects rows where region starts with 'A'
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 3       | 2025-05-03   | 22                 | 7             | 30     | tablet      | Africa | FALSE      |
+| 4       | 2025-05-04   | 30                 | 10            | 20     | desktop     | America| TRUE       |
+
+## SQL Wildcards
+
+Use wildcards (`%`, `_`) with `LIKE`.
+
+```sql
+SELECT * FROM user_engagement 
+WHERE region LIKE '_sia';  -- Matches regions like Asia using underscore wildcard
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 2       | 2025-05-02   | 20                 | 8             | 25     | mobile      | Asia   | TRUE       |
+
+## SQL In
+
+Match values in a list using `IN`.
+
+```sql
+SELECT * FROM user_engagement 
+WHERE region IN ('Europe', 'Asia');  -- Filters for users in either Europe or Asia
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 1       | 2025-05-01   | 15                 | 6             | 18     | desktop     | Europe | TRUE       |
+| 2       | 2025-05-02   | 20                 | 8             | 25     | mobile      | Asia   | TRUE       |
+
+## SQL Between
+
+Select values within a range using `BETWEEN`.
+
+```sql
+SELECT * FROM user_engagement 
+WHERE time_spent_minutes BETWEEN 10 AND 30;  -- Returns users who spent between 10 to 30 minutes
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 1       | 2025-05-01   | 15                 | 6             | 18     | desktop     | Europe | TRUE       |
+| 2       | 2025-05-02   | 20                 | 8             | 25     | mobile      | Asia   | TRUE       |
+| 5       | 2025-05-05   | 18                 | 5             | 12     | mobile      | Europe | TRUE       |
+
+## SQL Aliases
+
+Rename columns or tables with `AS`.
+
+```sql
+SELECT user_id AS id, region AS location 
+FROM user_engagement;  -- Renames user_id to id and region to location in the result
+```
+
+| id | location |
+|----|----------|
+| 1  | Europe   |
+| 2  | Asia     |
+| 3  | Africa   |
+| 4  | America  |
+| 5  | Europe   |
+
+
+
+Here are the tables for the SQL Join operations:
+
+## **SQL Joins**
+Combine data from multiple tables.
+
+```sql
+SELECT u.user_id, u.name, e.time_spent_minutes 
+FROM users u
+JOIN user_engagement e ON u.user_id = e.user_id;  -- Joins users with engagement data
+```
+
+| user_id | name       | time_spent_minutes |
+|---------|------------|--------------------|
+| 1       | John       | 20                 |
+| 2       | Sarah      | 15                 |
+| 3       | Michael    | 30                 |
+| 4       | Emily      | 45                 |
+| 5       | David      | 60                 |
+
+---
+
+## **SQL Inner Join**
+Get matching rows using `INNER JOIN`.
+
+```sql
+SELECT * FROM users u
+INNER JOIN user_engagement e ON u.user_id = e.user_id;  -- Only shows matching users from both tables
+```
+
+| user_id | name       | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|------------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 1       | John       | 2025-05-10   | 20                 | 5             | 10     | mobile      | Asia   | TRUE       |
+| 2       | Sarah      | 2025-05-11   | 15                 | 4             | 5      | desktop     | Europe | FALSE      |
+| 3       | Michael    | 2025-05-12   | 30                 | 6             | 8      | tablet      | Africa | TRUE       |
+| 4       | Emily      | 2025-05-13   | 45                 | 8             | 12     | mobile      | America| FALSE      |
+| 5       | David      | 2025-05-14   | 60                 | 10            | 20     | desktop     | Asia   | TRUE       |
+
+---
+
+## **SQL Left Join**
+Return all from left table with `LEFT JOIN`.
+
+```sql
+SELECT * FROM users u
+LEFT JOIN user_engagement e ON u.user_id = e.user_id;  -- Shows all users even if they have no engagement
+```
+
+| user_id | name       | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|------------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 1       | John       | 2025-05-10   | 20                 | 5             | 10     | mobile      | Asia   | TRUE       |
+| 2       | Sarah      | 2025-05-11   | 15                 | 4             | 5      | desktop     | Europe | FALSE      |
+| 3       | Michael    | 2025-05-12   | 30                 | 6             | 8      | tablet      | Africa | TRUE       |
+| 4       | Emily      | 2025-05-13   | 45                 | 8             | 12     | mobile      | America| FALSE      |
+| 5       | David      | 2025-05-14   | 60                 | 10            | 20     | desktop     | Asia   | TRUE       |
+| 6       | Laura      | NULL         | NULL               | NULL          | NULL   | NULL        | NULL   | NULL       |
+
+---
+
+## **SQL Right Join**
+Return all from right table with `RIGHT JOIN`.
+
+```sql
+SELECT * FROM users u
+RIGHT JOIN user_engagement e ON u.user_id = e.user_id;  -- Shows all engagement records even if user data is missing
+```
+
+| user_id | name       | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|------------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 1       | John       | 2025-05-10   | 20                 | 5             | 10     | mobile      | Asia   | TRUE       |
+| 2       | Sarah      | 2025-05-11   | 15                 | 4             | 5      | desktop     | Europe | FALSE      |
+| 3       | Michael    | 2025-05-12   | 30                 | 6             | 8      | tablet      | Africa | TRUE       |
+| 4       | Emily      | 2025-05-13   | 45                 | 8             | 12     | mobile      | America| FALSE      |
+| 5       | David      | 2025-05-14   | 60                 | 10            | 20     | desktop     | Asia   | TRUE       |
+| NULL    | NULL       | 2025-05-15   | 25                 | 7             | 10     | tablet      | Europe | FALSE      |
+
+---
+
+## **SQL Full Join**
+Combine results with `FULL JOIN`.
+
+```sql
+SELECT * FROM users u
+FULL OUTER JOIN user_engagement e ON u.user_id = e.user_id;  -- Includes all records from both tables
+```
+
+| user_id | name       | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|------------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 1       | John       | 2025-05-10   | 20                 | 5             | 10     | mobile      | Asia   | TRUE       |
+| 2       | Sarah      | 2025-05-11   | 15                 | 4             | 5      | desktop     | Europe | FALSE      |
+| 3       | Michael    | 2025-05-12   | 30                 | 6             | 8      | tablet      | Africa | TRUE       |
+| 4       | Emily      | 2025-05-13   | 45                 | 8             | 12     | mobile      | America| FALSE      |
+| 5       | David      | 2025-05-14   | 60                 | 10            | 20     | desktop     | Asia   | TRUE       |
+| NULL    | NULL       | 2025-05-15   | 25                 | 7             | 10     | tablet      | Europe | FALSE      |
+| 6       | Laura      | NULL         | NULL               | NULL          | NULL   | NULL        | NULL   | NULL       |
+
+---
+
+## **SQL Self Join**
+Join a table to itself.
+
+```sql
+SELECT a.user_id, b.user_id, a.region 
+FROM user_engagement a
+JOIN user_engagement b ON a.region = b.region AND a.user_id <> b.user_id;  -- Pairs users from the same region
+```
+
+| user_id | user_id | region |
+|---------|---------|--------|
+| 1       | 2       | Asia   |
+| 1       | 3       | Asia   |
+| 4       | 5       | America|
+| 2       | 5       | Europe |
+
+---
+
+## **SQL Union**
+Combine result sets with `UNION`.
+
+```sql
+SELECT region FROM user_engagement 
+UNION 
+SELECT region FROM archived_engagement;  -- Merges region data from two tables without duplicates
+```
+
+| region  |
+|---------|
+| Asia    |
+| Europe  |
+| America |
+| Africa  |
+
+---
+
+## **SQL Group By**
+Group data using `GROUP BY`.
+
+```sql
+SELECT region, COUNT(*) AS sessions 
+FROM user_engagement
+GROUP BY region;  -- Aggregates session counts by region
+```
+
+| region  | sessions |
+|---------|----------|
+| Asia    | 10       |
+| Europe  | 8        |
+| America | 6        |
+| Africa  | 5        |
+
+---
+
+## **SQL Having**
+Filter groups with `HAVING`.
+
+```sql
+SELECT region, COUNT(*) AS sessions 
+FROM user_engagement
+GROUP BY region
+HAVING COUNT(*) > 5;  -- Shows only regions with more than 5 sessions
+```
+
+| region  | sessions |
+|---------|----------|
+| Asia    | 10       |
+| Europe  | 8        |
+
+---
+
+## **SQL Exists**
+Check for existence of rows using `EXISTS`.
+
+```sql
+SELECT * FROM user_engagement e
+WHERE EXISTS (
+  SELECT 1 FROM users u WHERE u.user_id = e.user_id
+);  -- Filters engagement records where corresponding user exists
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 1       | 2025-05-10   | 20                 | 5             | 10     | mobile      | Asia   | TRUE       |
+| 2       | 2025-05-11   | 15                 | 4             | 5      | desktop     | Europe | FALSE      |
+| 3       | 2025-05-12   | 30                 | 6             | 8      | tablet      | Africa | TRUE       |
+| 4       | 2025-05-13   | 45                 | 8             | 12     | mobile      | America| FALSE      |
+| 5       | 2025-05-14   | 60                 | 10            | 20     | desktop     | Asia   | TRUE       |
+
+---
+
+
+
+Here are the tables for the SQL operations you've asked about:
+
+## **SQL Any, All**
+Use `ANY` and `ALL` for subquery comparisons.
+
+```sql
+SELECT * FROM user_engagement
+WHERE clicks > ANY (
+  SELECT clicks FROM user_engagement WHERE region = 'Europe'
+);  -- Returns users with clicks greater than any user from Europe
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 1       | 2025-05-10   | 20                 | 5             | 10     | mobile      | Asia   | TRUE       |
+| 3       | 2025-05-12   | 30                 | 6             | 15     | tablet      | Africa | TRUE       |
+| 5       | 2025-05-14   | 60                 | 10            | 20     | desktop     | Asia   | TRUE       |
+
+---
+
+## **SQL Select Into**
+Create new tables with `SELECT INTO`.
+
+```sql
+SELECT * INTO engagement_backup 
+FROM user_engagement;  -- Creates a backup copy of the table
+```
+
+This operation will create a new table `engagement_backup` with the same structure and data as `user_engagement`.
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 1       | 2025-05-10   | 20                 | 5             | 10     | mobile      | Asia   | TRUE       |
+| 2       | 2025-05-11   | 15                 | 4             | 5      | desktop     | Europe | FALSE      |
+| 3       | 2025-05-12   | 30                 | 6             | 8      | tablet      | Africa | TRUE       |
+| 4       | 2025-05-13   | 45                 | 8             | 12     | mobile      | America| FALSE      |
+| 5       | 2025-05-14   | 60                 | 10            | 20     | desktop     | Asia   | TRUE       |
+
+---
+
+## **SQL Insert Into Select**
+Copy data between tables using `INSERT INTO SELECT`.
+
+```sql
+INSERT INTO engagement_backup
+SELECT * FROM user_engagement;  -- Copies data from user_engagement into engagement_backup
+```
+
+This operation will copy all data from `user_engagement` into the `engagement_backup` table, so it will look the same as the table above.
+
+---
+
+## **SQL Case**
+Use conditional logic with `CASE`.
+
+```sql
+SELECT user_id,
+  CASE
+    WHEN time_spent_minutes > 30 THEN 'High'
+    WHEN time_spent_minutes BETWEEN 15 AND 30 THEN 'Medium'
+    ELSE 'Low'
+  END AS engagement_level
+FROM user_engagement;  -- Categorizes users by engagement level
+```
+
+| user_id | engagement_level |
+|---------|------------------|
+| 1       | Medium           |
+| 2       | Low              |
+| 3       | Medium           |
+| 4       | High             |
+| 5       | High             |
+
+---
+
+## **SQL Null Functions**
+Handle `NULL` with functions like `ISNULL()`, `COALESCE()`.
+
+```sql
+SELECT COALESCE(time_spent_minutes, 0) AS time_spent 
+FROM user_engagement;  -- Replaces NULL time values with 0
+```
+
+| user_id | time_spent |
+|---------|------------|
+| 1       | 20         |
+| 2       | 15         |
+| 3       | 30         |
+| 4       | 45         |
+| 5       | 60         |
+| 6       | 0          |  *(Assumes user 6 had a NULL value)*
+
+---
+
+## **SQL Stored Procedures**
+Define and call stored procedures.
+
+```sql
+CREATE OR REPLACE FUNCTION get_user_sessions(userId INT)
+RETURNS TABLE(session_date DATE, time_spent INT) AS $$
+BEGIN
+  RETURN QUERY
+  SELECT session_date, time_spent_minutes 
+  FROM user_engagement 
+  WHERE user_id = userId;
+END;
+$$ LANGUAGE plpgsql;  -- A stored function to retrieve sessions for a specific user
+```
+
+This SQL defines a stored function that, when called with a `userId`, will return the session date and time spent for that specific user.
+
+---
+
+## **SQL Comments**
+Comment your SQL code.
+
+```sql
+-- This is a single-line comment
+SELECT * FROM user_engagement;  -- another single-line comment
+
+/*
+  This is a multi-line
+  SQL comment
+*/  -- Comments for documentation or explanation
+```
+
+These are just comments for documentation purposes and do not affect the actual SQL queries. 
+
+---
+
+## **SQL Operators**
+Overview of arithmetic, comparison, and logical operators.
+
+```sql
+SELECT * FROM user_engagement 
+WHERE time_spent_minutes > 20 AND clicks <= 30;  -- Uses comparison and logical operators
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 1       | 2025-05-10   | 20                 | 5             | 10     | mobile      | Asia   | TRUE       |
+| 3       | 2025-05-12   | 30                 | 6             | 8      | tablet      | Africa | TRUE       |
+| 5       | 2025-05-14   | 60                 | 10            | 20     | desktop     | Asia   | TRUE       |
+
+---
+

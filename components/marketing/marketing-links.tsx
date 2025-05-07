@@ -202,6 +202,16 @@ export const DOCS_LINKS = [
         title: 'Dependencies',
         href: '/docs/dependencies',
         items: []
+      },
+      {
+        title: 'Basic SQL',
+        href: '/docs/sql-basic',
+        items: []
+      },
+      {
+        title: 'Intermediate SQL',
+        href: '/docs/sql-intermediate',
+        items: []
       }
     ]
   },

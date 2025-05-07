@@ -94,6 +94,7 @@
     "nodemailer": "6.9.16",
     "nuqs": "2.2.3",
     "otplib": "12.0.1",
+    "prism-react-renderer": "^2.4.1",
     "qrcode": "1.5.4",
     "react": "19.0.0",
     "react-accessible-treeview": "2.10.0",

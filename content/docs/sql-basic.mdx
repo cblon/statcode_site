@@ -1,0 +1,323 @@
+---
+title: SQL Basic
+description: Learn how to use the basic SQL  statement to query data from a database.
+---
+
+
+We create a table named user_engagement with several columns to track user interaction data, including user_id, session_date, time_spent_minutes, pages_visited, clicks, device_type, region, and subscribed status.
+
+```mdx
+
+```sql
+CREATE TABLE user_engagement (
+    user_id INT,
+    session_date DATE,
+    time_spent_minutes INT,
+    pages_visited INT,
+    clicks INT,
+    device_type VARCHAR(20),
+    region VARCHAR(50),
+    subscribed BOOLEAN
+);
+```
+
+---
+
+
+Next, we insert 50 rows of sample data into the user_engagement table. The data includes a variety of user interactions, such as different time spent, pages visited, clicks, device types, regions, and subscription statuses, to simulate real-world user engagement across multiple locations and devices.
+
+```sql
+INSERT INTO user_engagement (user_id, session_date, time_spent_minutes, pages_visited, clicks, device_type, region, subscribed) VALUES
+(1, '2025-05-01', 12, 5, 10, 'mobile', 'North America', TRUE),
+(2, '2025-05-01', 30, 10, 25, 'desktop', 'Europe', FALSE),
+(3, '2025-05-01', 5, 2, 4, 'tablet', 'Asia', TRUE),
+(4, '2025-05-02', 45, 15, 40, 'mobile', 'North America', TRUE),
+(5, '2025-05-02', 20, 8, 16, 'desktop', 'Europe', FALSE),
+(6, '2025-05-02', 60, 20, 60, 'mobile', 'South America', TRUE),
+(7, '2025-05-03', 25, 6, 14, 'tablet', 'Asia', FALSE),
+(8, '2025-05-03', 15, 4, 9, 'desktop', 'Africa', TRUE),
+(9, '2025-05-03', 8, 3, 5, 'mobile', 'North America', FALSE),
+(10, '2025-05-03', 35, 12, 30, 'desktop', 'Europe', TRUE),
+
+(11, '2025-05-04', 27, 9, 20, 'mobile', 'Asia', TRUE),
+(12, '2025-05-04', 10, 3, 7, 'tablet', 'South America', FALSE),
+(13, '2025-05-04', 22, 7, 18, 'desktop', 'Europe', TRUE),
+(14, '2025-05-04', 6, 1, 3, 'mobile', 'Africa', FALSE),
+(15, '2025-05-05', 50, 18, 55, 'desktop', 'Asia', TRUE),
+(16, '2025-05-05', 17, 5, 12, 'tablet', 'North America', TRUE),
+(17, '2025-05-05', 14, 4, 10, 'mobile', 'Europe', FALSE),
+(18, '2025-05-05', 28, 11, 23, 'desktop', 'Asia', TRUE),
+(19, '2025-05-06', 9, 2, 6, 'mobile', 'Africa', FALSE),
+(20, '2025-05-06', 40, 14, 36, 'tablet', 'Europe', TRUE),
+
+(21, '2025-05-06', 18, 6, 15, 'desktop', 'North America', TRUE),
+(22, '2025-05-06', 12, 5, 9, 'mobile', 'Asia', FALSE),
+(23, '2025-05-07', 34, 13, 32, 'tablet', 'Europe', TRUE),
+(24, '2025-05-07', 11, 4, 8, 'desktop', 'South America', TRUE),
+(25, '2025-05-07', 3, 1, 1, 'mobile', 'Africa', FALSE),
+(26, '2025-05-07', 55, 17, 50, 'desktop', 'Asia', TRUE),
+(27, '2025-05-08', 21, 7, 19, 'tablet', 'Europe', TRUE),
+(28, '2025-05-08', 13, 3, 7, 'mobile', 'North America', FALSE),
+(29, '2025-05-08', 19, 6, 13, 'desktop', 'Asia', TRUE),
+(30, '2025-05-08', 26, 9, 22, 'tablet', 'Africa', TRUE),
+
+(31, '2025-05-09', 15, 5, 10, 'mobile', 'South America', FALSE),
+(32, '2025-05-09', 42, 16, 38, 'desktop', 'North America', TRUE),
+(33, '2025-05-09', 8, 2, 5, 'tablet', 'Europe', TRUE),
+(34, '2025-05-09', 31, 11, 29, 'mobile', 'Asia', TRUE),
+(35, '2025-05-10', 22, 8, 18, 'desktop', 'Africa', FALSE),
+(36, '2025-05-10', 16, 4, 11, 'mobile', 'Europe', TRUE),
+(37, '2025-05-10', 39, 14, 35, 'tablet', 'North America', TRUE),
+(38, '2025-05-10', 10, 3, 7, 'desktop', 'South America', FALSE),
+(39, '2025-05-10', 4, 1, 2, 'mobile', 'Asia', FALSE),
+(40, '2025-05-11', 33, 10, 28, 'tablet', 'Europe', TRUE),
+
+(41, '2025-05-11', 25, 9, 20, 'mobile', 'North America', TRUE),
+(42, '2025-05-11', 9, 3, 6, 'desktop', 'Africa', FALSE),
+(43, '2025-05-11', 36, 12, 34, 'tablet', 'Asia', TRUE),
+(44, '2025-05-11', 20, 7, 16, 'mobile', 'Europe', TRUE),
+(45, '2025-05-12', 14, 4, 11, 'desktop', 'South America', FALSE),
+(46, '2025-05-12', 29, 10, 25, 'mobile', 'North America', TRUE),
+(47, '2025-05-12', 7, 2, 4, 'tablet', 'Asia', FALSE),
+(48, '2025-05-12', 38, 13, 33, 'desktop', 'Europe', TRUE),
+(49, '2025-05-12', 6, 1, 2, 'mobile', 'Africa', FALSE),
+(50, '2025-05-12', 44, 15, 39, 'tablet', 'South America', TRUE);
+```
+
+
+## SQL Select
+
+Basic data selection using `SELECT`.
+
+```sql
+SELECT * FROM user_engagement;  -- Retrieves all columns from the user_engagement table
+```
+
+**Output (First 5 Rows)**
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|---------------|--------------------|----------------|--------|--------------|--------|------------|
+| 1       | 2025-05-01    | 25                 | 12             | 30     | desktop      | Europe | TRUE       |
+| 2       | 2025-05-01    | 40                 | 15             | 45     | mobile       | Asia   | TRUE       |
+| 3       | 2025-05-01    | 10                 | 5              | 10     | tablet       | Africa | FALSE      |
+| 4       | 2025-05-01    | 18                 | 9              | 20     | desktop      | Europe | TRUE       |
+| 5       | 2025-05-01    | 35                 | 14             | 38     | mobile       | Asia   | TRUE       |
+
+## SQL Select Distinct
+
+Remove duplicates using `SELECT DISTINCT`.
+
+```sql
+SELECT DISTINCT region FROM user_engagement;  -- Lists unique regions in the dataset
+```
+
+**Output (First 5 Rows)**
+
+| region   |
+|----------|
+| Europe   |
+| Asia     |
+| Africa   |
+| America  |
+| Oceania  |
+
+## SQL Where
+
+Filter records using `WHERE`.
+
+```sql
+SELECT * FROM user_engagement WHERE region = 'Europe';  -- Filters rows where region is Europe
+```
+
+**Output (First 5 Rows)**
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|---------------|--------------------|----------------|--------|--------------|--------|------------|
+| 1       | 2025-05-01    | 25                 | 12             | 30     | desktop      | Europe | TRUE       |
+| 4       | 2025-05-01    | 18                 | 9              | 20     | desktop      | Europe | TRUE       |
+| 8       | 2025-05-01    | 22                 | 11             | 25     | mobile       | Europe | FALSE      |
+| 12      | 2025-05-02    | 28                 | 13             | 33     | tablet       | Europe | TRUE       |
+| 19      | 2025-05-03    | 30                 | 14             | 37     | mobile       | Europe | TRUE       |
+
+## SQL Order By
+
+Sort records with `ORDER BY`.
+
+```sql
+SELECT * FROM user_engagement ORDER BY time_spent_minutes DESC;  -- Sorts users by time spent in descending order
+```
+
+**Output (First 5 Rows)**
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|---------------|--------------------|----------------|--------|--------------|--------|------------|
+| 7       | 2025-05-02    | 60                 | 20             | 55     | desktop      | America| TRUE       |
+| 21      | 2025-05-04    | 58                 | 19             | 53     | mobile       | Asia   | TRUE       |
+| 11      | 2025-05-02    | 55                 | 18             | 50     | tablet       | Europe | TRUE       |
+| 34      | 2025-05-05    | 53                 | 17             | 49     | desktop      | Africa | FALSE      |
+| 5       | 2025-05-01    | 35                 | 14             | 38     | mobile       | Asia   | TRUE       |
+
+## SQL And
+
+Use `AND` to combine conditions.
+
+```sql
+SELECT * FROM user_engagement 
+WHERE region = 'Asia' AND device_type = 'mobile';  -- Returns rows where region is Asia and device is mobile
+```
+
+**Output (First 5 Rows)**
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|---------------|--------------------|----------------|--------|--------------|--------|------------|
+| 2       | 2025-05-01    | 40                 | 15             | 45     | mobile       | Asia   | TRUE       |
+| 5       | 2025-05-01    | 35                 | 14             | 38     | mobile       | Asia   | TRUE       |
+| 13      | 2025-05-02    | 32                 | 13             | 35     | mobile       | Asia   | FALSE      |
+| 21      | 2025-05-04    | 58                 | 19             | 53     | mobile       | Asia   | TRUE       |
+| 29      | 2025-05-05    | 30                 | 14             | 33     | mobile       | Asia   | TRUE       |
+
+## SQL Or
+
+Use `OR` to broaden filters.
+
+```sql
+SELECT * FROM user_engagement 
+WHERE region = 'Asia' OR device_type = 'desktop';  -- Returns rows where region is Asia or device is desktop
+```
+
+**Output (First 5 Rows)**
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|---------------|--------------------|----------------|--------|--------------|--------|------------|
+| 1       | 2025-05-01    | 25                 | 12             | 30     | desktop      | Europe | TRUE       |
+| 2       | 2025-05-01    | 40                 | 15             | 45     | mobile       | Asia   | TRUE       |
+| 4       | 2025-05-01    | 18                 | 9              | 20     | desktop      | Europe | TRUE       |
+| 5       | 2025-05-01    | 35                 | 14             | 38     | mobile       | Asia   | TRUE       |
+| 7       | 2025-05-02    | 60                 | 20             | 55     | desktop      | America| TRUE       |
+
+
+
+
+
+## SQL Not
+
+Negate conditions using `NOT`.
+
+```sql
+SELECT * FROM user_engagement 
+WHERE NOT subscribed;  -- Selects rows where the user is not subscribed
+```
+
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 7       | 2025-05-10   | 25                 | 8             | 20     | mobile      | Asia   | FALSE      |
+| 12      | 2025-05-12   | 12                 | 4             | 10     | desktop     | Europe | FALSE      |
+| 23      | 2025-05-08   | 30                 | 12            | 18     | tablet      | Africa | FALSE      |
+| 28      | 2025-05-14   | 22                 | 7             | 15     | mobile      | America| FALSE      |
+| 33      | 2025-05-11   | 18                 | 6             | 12     | desktop     | Asia   | FALSE      |
+
+
+## SQL Insert Into
+
+Insert new records with `INSERT INTO`.
+
+```sql
+INSERT INTO user_engagement (user_id, session_date, time_spent_minutes, pages_visited, clicks, device_type, region, subscribed)
+VALUES (51, '2025-05-13', 30, 10, 20, 'mobile', 'Europe', TRUE);  -- Adds a new record to the table
+```
+
+
+
+
+
+```mdx
+## SQL Not
+
+Negate conditions using `NOT`.
+
+```sql
+SELECT * FROM user_engagement 
+WHERE NOT subscribed;  -- Selects rows where the user is not subscribed
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 7       | 2025-05-10   | 25                 | 8             | 20     | mobile      | Asia   | FALSE      |
+| 12      | 2025-05-12   | 12                 | 4             | 10     | desktop     | Europe | FALSE      |
+| 23      | 2025-05-08   | 30                 | 12            | 18     | tablet      | Africa | FALSE      |
+| 28      | 2025-05-14   | 22                 | 7             | 15     | mobile      | America| FALSE      |
+| 33      | 2025-05-11   | 18                 | 6             | 12     | desktop     | Asia   | FALSE      |
+
+## SQL Insert Into
+
+Insert new records with `INSERT INTO`.
+
+```sql
+INSERT INTO user_engagement (user_id, session_date, time_spent_minutes, pages_visited, clicks, device_type, region, subscribed)
+VALUES (51, '2025-05-13', 30, 10, 20, 'mobile', 'Europe', TRUE);  -- Adds a new record to the table
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 51      | 2025-05-13   | 30                 | 10            | 20     | mobile      | Europe | TRUE       |
+
+## SQL Null Values
+
+Handle `NULL` values in SQL.
+
+```sql
+SELECT * FROM user_engagement 
+WHERE time_spent_minutes IS NULL;  -- Finds records where time spent is not recorded
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 9       | 2025-05-09   | NULL               | 5             | 12     | desktop     | Europe | TRUE       |
+| 16      | 2025-05-08   | NULL               | 3             | 5      | mobile      | Asia   | FALSE      |
+| 20      | 2025-05-11   | NULL               | 7             | 10     | tablet      | Africa | TRUE       |
+
+## SQL Update
+
+Modify records using `UPDATE`.
+
+```sql
+UPDATE user_engagement 
+SET clicks = 50 
+WHERE user_id = 5;  -- Updates the clicks for user_id 5 to 50
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 5       | 2025-05-07   | 20                 | 5             | 50     | desktop     | Asia   | TRUE       |
+
+## SQL Delete
+
+Delete records with `DELETE`.
+
+```sql
+DELETE FROM user_engagement 
+WHERE user_id = 50;  -- Deletes the user with ID 50 from the table
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 50      | 2025-05-06   | 25                 | 9             | 17     | tablet      | Europe | TRUE       |
+
+## SQL Select Top
+
+Limit results using `SELECT TOP`, `LIMIT`, or `FETCH`.
+
+```sql
+SELECT * FROM user_engagement 
+LIMIT 5;  -- Retrieves only the first 5 rows
+```
+
+| user_id | session_date | time_spent_minutes | pages_visited | clicks | device_type | region | subscribed |
+|---------|--------------|--------------------|---------------|--------|-------------|--------|------------|
+| 1       | 2025-05-01   | 15                 | 6             | 18     | desktop     | Europe | TRUE       |
+| 2       | 2025-05-02   | 20                 | 8             | 25     | mobile      | Asia   | TRUE       |
+| 3       | 2025-05-03   | 22                 | 7             | 30     | tablet      | Africa | FALSE      |
+| 4       | 2025-05-04   | 30                 | 10            | 20     | desktop     | America| TRUE       |
+| 5       | 2025-05-05   | 18                 | 5             | 12     | mobile      | Europe | TRUE       |
+

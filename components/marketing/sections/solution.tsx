@@ -26,26 +26,26 @@ export function Solution(): React.JSX.Element {
               </p>
             </div>
             <div className="mx-auto xl:container xl:rounded-xl xl:bg-neutral-50 xl:p-6 dark:xl:bg-neutral-900">
-              <div className="grid auto-rows-[minmax(200px,auto)] grid-cols-12 gap-6">
+             
+             
+              <div className="grid grid-cols-2 gap-2 h-full">
+
+              <div className='flex flex-col gap-2'>
+
                 <BentoCustomersCard
                   className="col-span-12 md:col-span-6 xl:col-span-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 />
-                <BentoPipelinesCard
-                  className="col-span-12 md:col-span-6 xl:col-span-8 overflow-auto"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                />
+               
                 <BentoAnalyticsCard
                   className="col-span-12 md:col-span-6 xl:col-span-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 />
-                <BentoCampaignsCard
+                {/* <BentoCampaignsCard
                   className="col-span-12 md:col-span-6 xl:col-span-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -56,7 +56,15 @@ export function Solution(): React.JSX.Element {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
+                /> */}
+              </div>
+              <BentoPipelinesCard
+                  className="h-full overflow-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
                 />
+              
               </div>
             </div>
             <div className="-ml-8 w-[calc(100%+64px)] border-t border-dashed sm:-ml-20 sm:w-[calc(100%+160px)]" />

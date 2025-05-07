@@ -66,42 +66,51 @@ export function AiAdvisorCard(props: CardProps): React.JSX.Element {
       <CardContent className="pt-6">
         <div className="mb-3 flex items-center gap-2">
           <VercelLogo />
-          <h2 className="text-xl font-semibold">Vercel</h2>
+          <h2 className="text-xl font-semibold">Sample Program Evaluation</h2>
         </div>
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <GlobeIcon className="size-4 text-muted-foreground" />
-            <span className="w-20 text-sm text-muted-foreground">Domain</span>
-            <Link
-              href="https://vercel.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-blue-500"
+            <span className="w-20 text-sm text-muted-foreground">Goals</span>
+            <span className="text-sm"
             >
-              https://vercel.com
-            </Link>
+              Assess program effectiveness
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <User2Icon className="size-4 text-muted-foreground" />
-            <span className="w-20 text-sm text-muted-foreground">CEO</span>
-            <span className="text-sm">Guillermo Rauch</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CalendarIcon className="size-4 text-muted-foreground" />
-            <span className="w-20 text-sm text-muted-foreground">Founded</span>
-            <span className="text-sm">2015</span>
+            <span className="w-20 text-sm text-muted-foreground">Method</span>
+            <span className="text-sm">mixed-methods evaluation</span>
           </div>
           <div className="flex items-center gap-2">
             <LineChartIcon className="size-4 text-muted-foreground" />
-            <span className="w-20 text-sm text-muted-foreground">Est. ARR</span>
-            <span className="text-sm">$100-120M</span>
+            <span className="w-20 text-sm text-muted-foreground">Data </span>
+            <div className="flex gap-1">
+              <Badge
+                variant="secondary"
+                className="whitespace-nowrap pl-2 text-xs"
+              >
+                Quantitative
+              </Badge>
+              <Badge
+                variant="secondary"
+                className="whitespace-nowrap pl-2 text-xs"
+              >
+                Qualitative
+              </Badge>
+            </div>
           </div>
           <div className="flex items-center gap-2">
+            <LineChartIcon className="size-4 text-muted-foreground" />
+            <span className="w-20 text-sm text-muted-foreground">Findings</span>
+            <span className="text-sm">Impact,Process Evaluation Findings</span>
+          </div>
+          {/* <div className="flex items-center gap-2">
             <MapPinIcon className="size-4 text-muted-foreground" />
             <span className="w-20 text-sm text-muted-foreground">Location</span>
             <span className="text-sm">California, USA</span>
-          </div>
-          <div className="flex items-center gap-2">
+          </div> */}
+          {/* <div className="flex items-center gap-2">
             <TagsIcon className="size-4 text-muted-foreground" />
             <span className="w-20 text-sm text-muted-foreground">Tags</span>
             <div className="flex gap-1">
@@ -118,20 +127,18 @@ export function AiAdvisorCard(props: CardProps): React.JSX.Element {
                 B2B
               </Badge>
             </div>
-          </div>
-          <div className="flex items-center gap-2">
+          </div> */}
+          {/* <div className="flex items-center gap-2">
             <DollarSignIcon className="size-4 text-muted-foreground" />
             <span className="w-20 text-sm text-muted-foreground">Funding</span>
             <span className="text-sm">$250M Series E</span>
-          </div>
+          </div> */}
         </div>
       </CardContent>
       <CardFooter className="flex-col items-start space-y-4 rounded-b-xl bg-neutral-50 pt-6 dark:bg-neutral-900">
-        <h3 className="text-base font-semibold sm:text-lg">AI Advisor</h3>
+        <h3 className="text-base font-semibold sm:text-lg">Conclusion</h3>
         <div className="min-h-10 max-w-md text-sm text-muted-foreground">
-          Vercel has been contacted 4 times in the past year. Suggested next
-          contact is in 3 days.
-        </div>
+        By employing process evaluations in parallel with traditional impact evaluations, we can learn in real-time, adjust course, and iterate for better outcomes.        </div>
       </CardFooter>
     </Card>
   );

@@ -16,8 +16,8 @@ export default function IndexPage(): React.JSX.Element {
       <Logos />
       <Problem />
       <Solution />
-      <Stats />
-      <Testimonials />
+      {/* <Stats /> */}
+      {/* <Testimonials /> */}
       <FAQ />
       <CTA />
     </>

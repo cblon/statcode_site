@@ -7,38 +7,34 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
+import { DataMaturityQuiz } from '@/components/quiz/data-maturity-quiz';
 
 const DATA = [
   {
-    id: 'lead',
-    label: 'Lead',
-    deals: 45,
-    value: 100
-  },
-  {
-    id: 'qualified',
-    label: 'Qualified',
-    deals: 32,
-    value: 71
-  },
-  {
-    id: 'proposal',
-    label: 'Proposal',
-    deals: 18,
-    value: 40
-  },
-  {
-    id: 'negotiation',
-    label: 'Negotiation',
+    id: 'reactive ',
+    label: 'Reactive ',
     deals: 7,
     value: 16
   },
   {
-    id: 'closed',
-    label: 'Closed',
-    deals: 3,
-    value: 7
-  }
+    id: 'compliant ',
+    label: 'Compliant ',
+    deals: 18,
+    value: 40
+  },
+  {
+    id: 'strategic',
+    label: 'Strategic',
+    deals: 32,
+    value: 71
+  },
+  {
+    id: 'transformative',
+    label: 'Transformative',
+    deals: 45,
+    value: 100
+  },
+
 ];
 
 const MotionCard = motion.create(Card);
@@ -56,12 +52,22 @@ export function BentoPipelinesCard({
       {...other}
     >
       <CardHeader>
-        <CardTitle className="text-xl font-semibold">Pipelines</CardTitle>
+      <CardTitle className="text-xl font-semibold"> The Data Maturity Model</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <p className="line-clamp-2 text-sm text-muted-foreground lg:max-w-[55%]">
-          Track your sales pipeline stages. Get a detailed breakdown at a
-          glance.
+          Take the quiz and understand your data maturity level
+        </p>
+
+      <DataMaturityQuiz />
+      </CardContent>
+
+      {/* <CardHeader>
+        <CardTitle className="text-xl font-semibold"> The Data Maturity Model</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <p className="line-clamp-2 text-sm text-muted-foreground lg:max-w-[55%]">
+        4 Stages of Data Literacy
         </p>
         <div className="relative min-h-[142px] overflow-hidden">
           <div className="group absolute inset-0 top-2 flex flex-col justify-between">
@@ -96,7 +102,7 @@ export function BentoPipelinesCard({
             ))}
           </div>
         </div>
-      </CardContent>
+      </CardContent> */}
     </MotionCard>
   );
 }

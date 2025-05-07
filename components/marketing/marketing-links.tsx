@@ -179,6 +179,11 @@ export const DOCS_LINKS = [
         items: []
       },
       {
+        title: 'About',
+        href: '/docs/about',
+        items: []
+      },
+      {
         title: 'Dependencies',
         href: '/docs/dependencies',
         items: []
@@ -189,6 +194,11 @@ export const DOCS_LINKS = [
     title: 'Guides',
     icon: <BookIcon className="size-4 shrink-0 text-muted-foreground" />,
     items: [
+      {
+        title: 'Data Types',
+        href: '/docs/data-types',
+        items: []
+      },
       {
         title: 'Using MDX',
         href: '/docs/using-mdx',

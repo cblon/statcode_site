@@ -54,48 +54,53 @@ export function BentoCustomersCard({
       {...other}
     >
       <CardHeader>
-        <CardTitle className="text-xl font-semibold">Customers</CardTitle>
+        <CardTitle className="text-xl font-semibold">Why it matters</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <p className="line-clamp-2 text-sm text-muted-foreground">
-          Organize your contact and resource data in one place.
+          Organizations with strong data cultures are 3x more likely to exceed their mission goals.
         </p>
         <div className="space-y-2.5 rounded-lg border p-4 shadow-sm">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <UsersIcon className="size-4 text-muted-foreground" />
-              <span className="text-sm font-medium">Total customers</span>
+              <span className="text-sm font-medium">Mission</span>
             </div>
-            <motion.div
-              className="flex items-center text-blue-500"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <TrendingUpIcon className="mr-1 size-4" />
-              <span className="text-sm font-semibold">+12.5%</span>
-            </motion.div>
+
           </div>
-          <motion.div
+          {/* <motion.div
             className="text-3xl font-bold"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            1,234
+           X3
+          </motion.div> */}
+
+
+          <motion.div
+            className="flex items-center text-blue-500 "
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <TrendingUpIcon className="mr-1 size-4" />
+            <span className="text-3xl font-bold">x3</span>
           </motion.div>
+
+
           <div className="flex gap-1">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <AvatarGroup
+              {/* <AvatarGroup
                 max={5}
                 showOverflowCount={false}
                 size="sm"
                 avatars={DATA}
-              />
+              /> */}
             </motion.div>
           </div>
         </div>

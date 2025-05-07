@@ -18,12 +18,11 @@ export function Solution(): React.JSX.Element {
           <div className="container relative space-y-10">
             <div>
               <h2 className="mb-2.5 text-3xl font-semibold md:text-5xl">
-                The next-gen SaaS
+              Theory of Change
               </h2>
               <p className="mt-1 max-w-2xl text-muted-foreground md:mt-6">
-                {AppInfo.APP_NAME} is the engine that builds, scales and grows
-                your company to the next level. Reminder that this is a demo and
-                some of the features below don't exists.
+                {/* {AppInfo.APP_NAME}  */}
+                We often face the challenge of designing programs based on a fixed theory of change, assuming that one-size-fits-all solutions will work across diverse communities. But this can lead to a disconnect between the model and the people it’s supposed to serve. If the assumptions don’t match the reality on the ground—whether it’s cultural, socio-economic, or geographic—it’s easy to miss the mark and fail to achieve impact.  
               </p>
             </div>
             <div className="mx-auto xl:container xl:rounded-xl xl:bg-neutral-50 xl:p-6 dark:xl:bg-neutral-900">
@@ -35,7 +34,7 @@ export function Solution(): React.JSX.Element {
                   transition={{ duration: 0.5 }}
                 />
                 <BentoPipelinesCard
-                  className="col-span-12 md:col-span-6 xl:col-span-8"
+                  className="col-span-12 md:col-span-6 xl:col-span-8 overflow-auto"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
@@ -64,20 +63,19 @@ export function Solution(): React.JSX.Element {
             <div className="grid gap-10 sm:container lg:grid-cols-2">
               <div className="order-1 lg:order-2">
                 <h2 className="mb-2.5 mt-8 text-3xl font-semibold md:text-5xl">
-                  Your personal operating system
+                Process Evaluations
                 </h2>
                 <p className="mt-1 text-muted-foreground md:mt-6">
-                  Harness the power of AI to transform your business and
-                  automate almost everything with workflows.
+                Various types of process evaluations (chronicle, compliance, translation, improvement, adaptive management) help address questions of context, fidelity, adaptation, and improvement.
                 </p>
                 <ul className="mt-6 list-none flex-wrap items-center gap-6 space-y-3 md:flex md:space-y-0">
                   {[
-                    'AI-driven insights',
-                    'Smart automation',
-                    'Adaptive workflows',
-                    'Predictive analytics',
-                    'Natural language processing',
-                    'Auto task prioritization'
+                    'Chronicle  ',
+                    'Compliance/Fidelity  ',
+                    'Translation  ',
+                    'Improvement  ',
+                    'Adaptive Management  ',
+                    
                   ].map((feature) => (
                     <li
                       key={feature}

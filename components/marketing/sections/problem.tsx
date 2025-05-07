@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BarChartIcon, UserPlusIcon, WorkflowIcon } from 'lucide-react';
+import { AlarmCheckIcon, DollarSignIcon, TriangleAlertIcon } from 'lucide-react';
 
 import { BlurFade } from '@/components/marketing/fragments/blur-fade';
 import { GridSection } from '@/components/marketing/fragments/grid-section';
@@ -7,22 +7,22 @@ import { TextGenerateWithSelectBoxEffect } from '@/components/marketing/fragment
 
 const DATA = [
   {
-    icon: <UserPlusIcon className="size-5 shrink-0" />,
-    title: 'Problem 1',
+    icon: <TriangleAlertIcon className="size-5 shrink-0" />,
+    title: 'Competition',
     description:
-      'Describe a significant problem your ideal customer profile has. Explain how this problem impacts their goals or daily operations.'
+      'Imagine seeing another nonprofit in your community getting all the funding, gaining recognition, and scaling their programs—while you’re still struggling to demonstrate real impact. Can you afford to stay in the dark?'
   },
   {
-    icon: <BarChartIcon className="size-5 shrink-0" />,
-    title: 'Problem 2',
+    icon: <DollarSignIcon className="size-5 shrink-0" />,
+    title: 'lack of Resources',
     description:
-      'Describe a significant problem your ideal customer profile has. Explain how this problem impacts their goals or daily operations.'
+      'Think about the last time you wished for more resources or better donor engagement. Now, imagine having the ability to achieve all of that with less effort—by simply understanding and using your data better.'
   },
   {
-    icon: <WorkflowIcon className="size-5 shrink-0" />,
-    title: 'Problem 3',
+    icon: <AlarmCheckIcon className="size-5 shrink-0" />,
+    title: 'Time and Energy',
     description:
-      'Describe a significant problem your ideal customer profile has. Explain how this problem impacts their goals or daily operations.'
+      'Can you afford to be caught off guard by changes in the landscape? What happens when you’re asked to demonstrate the effectiveness of your programs on short notice, and you have no data to show? It’s not a matter of if change will come—it’s when. Will your nonprofit be ready?'
   }
 ];
 
@@ -31,7 +31,7 @@ export function Problem(): React.JSX.Element {
     <GridSection>
       <div className="px-4 py-20 text-center">
         <h2 className="text-3xl font-semibold md:text-5xl">
-          <TextGenerateWithSelectBoxEffect words="Attention Grabbing Title" />
+          <TextGenerateWithSelectBoxEffect words="The Problem" />
         </h2>
       </div>
       <div className="grid divide-y border-t border-dashed md:grid-cols-3 md:divide-x md:divide-y-0">

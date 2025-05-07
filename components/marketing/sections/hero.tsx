@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/tabs';
 import { Routes } from '@/constants/routes';
 import { cn } from '@/lib/utils';
+import ProgramDesignandEvaluation from './hero-data-viz';
 
 function HeroPill(): React.JSX.Element {
   return (
@@ -47,7 +48,7 @@ function HeroPill(): React.JSX.Element {
             orientation="vertical"
             className="mx-2"
           />
-          Put an announcement here 🎉
+          Official portfolio 🎉
           <ChevronRightIcon className="ml-1.5 size-3 shrink-0 text-foreground transition-transform group-hover:translate-x-0.5" />
         </Badge>
       </Link>
@@ -63,8 +64,11 @@ function HeroTitle(): React.JSX.Element {
       transition={{ delay: 0.2, duration: 0.4 }}
     >
       <h1 className="mt-6 text-center text-[48px] font-bold leading-[54px] tracking-[-1.2px] [font-kerning:none] sm:text-[56px] md:text-[64px] lg:text-[76px] lg:leading-[74px] lg:tracking-[-2px]">
-        Your revolutionary
-        <br /> Next.js SaaS
+        <span className='text-4xl'>
+          The Hidden Key to Data Success:
+        </span>
+        <br />
+        Data-Driven Evaluation
       </h1>
     </motion.div>
   );
@@ -78,8 +82,7 @@ function HeroDescription(): React.JSX.Element {
       transition={{ delay: 0.4, duration: 0.4 }}
       className="mx-auto mt-3 max-w-[560px] text-balance text-center text-lg leading-[26px] text-muted-foreground sm:text-xl lg:mt-6"
     >
-      This is a demo application built with Achromatic. It will save you time
-      and effort building your next SaaS.
+      You may be thinking, 'We already collect data, but it’s not helping.' The problem isn’t the data—it’s how you use it. We can show you how to turn those numbers into a strategic advantage.
     </motion.p>
   );
 }
@@ -92,7 +95,7 @@ function HeroButtons(): React.JSX.Element {
       transition={{ delay: 0.6, duration: 0.4 }}
       className="mx-auto flex w-full flex-col gap-2 px-7 sm:w-auto sm:flex-row sm:px-0"
     >
-      <Link
+      {/* <Link
         href={Routes.SignUp}
         className={cn(
           buttonVariants({
@@ -102,7 +105,7 @@ function HeroButtons(): React.JSX.Element {
         )}
       >
         Start for free
-      </Link>
+      </Link> */}
       <Link
         href={Routes.Contact}
         className={cn(
@@ -112,7 +115,7 @@ function HeroButtons(): React.JSX.Element {
           'h-10 rounded-xl sm:h-9'
         )}
       >
-        Talk to sales
+        See the Results for Yourself
       </Link>
     </motion.div>
   );
@@ -347,6 +350,8 @@ function HeroIllustration(): React.JSX.Element {
   );
 }
 
+
+
 export function Hero(): React.JSX.Element {
   return (
     <GridSection className="overflow-x-hidden">
@@ -358,7 +363,8 @@ export function Hero(): React.JSX.Element {
         </div>
         <HeroDescription />
         <HeroButtons />
-        <HeroIllustration />
+        {/* <HeroIllustration /> */}
+        <ProgramDesignandEvaluation/>
       </div>
     </GridSection>
   );

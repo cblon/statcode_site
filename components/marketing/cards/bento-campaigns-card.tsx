@@ -17,51 +17,23 @@ const DATA = [
   {
     type: 'email',
     icon: MailIcon,
-    title: 'Welcome Email',
-    timing: 'Sent upon customer registration'
+    title: 'Data',
+    timing: 'How to collect the right data (without overcomplicating things)'
   },
   {
     type: 'message',
     icon: MessageSquareIcon,
-    title: 'Appointment Reminder',
-    timing: '24 hours before appointment'
+    title: 'Method',
+    timing: 'Proven methods for evaluating programs'
   },
   {
     type: 'email',
     icon: MailIcon,
-    title: 'Follow-up Email',
-    timing: '2 days after initial contact'
+    title: 'impact',
+    timing: 'How to communicate impact to funders and stakeholders'
   },
-  {
-    type: 'message',
-    icon: MessageSquareIcon,
-    title: 'Feedback Request',
-    timing: '48 hours after service completion'
-  },
-  {
-    type: 'email',
-    icon: MailIcon,
-    title: 'Exclusive Offer Email',
-    timing: 'Sent 7 days after inactivity'
-  },
-  {
-    type: 'message',
-    icon: MessageSquareIcon,
-    title: 'Personalized Check-in',
-    timing: '30 days after last interaction'
-  },
-  {
-    type: 'email',
-    icon: MailIcon,
-    title: 'Special Event Invitation',
-    timing: '14 days before the event'
-  },
-  {
-    type: 'message',
-    icon: MessageSquareIcon,
-    title: 'Reactivation Campaign',
-    timing: '90 days after inactivity'
-  }
+
+
 ];
 
 const MotionCard = motion.create(Card);
@@ -79,11 +51,11 @@ export function BentoCampaignsCard({
       {...other}
     >
       <CardHeader>
-        <CardTitle className="text-xl font-semibold">Campaigns</CardTitle>
+        <CardTitle className="text-xl font-semibold">Build a Data-Driven Pipeline</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">
-          Set up campaigns to notify your customer segment.
+        Get Started
         </p>
         <Carousel
           opts={{

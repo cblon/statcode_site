@@ -3,9 +3,9 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeftRightIcon } from 'lucide-react';
-import AppleCalendar from 'public/marketing/features/apple-calendar.svg';
-import GoogleCalendar from 'public/marketing/features/google-calendar.svg';
-import OutlookCalendar from 'public/marketing/features/outlook-calendar.svg';
+import AppleCalendar from 'public/marketing/features/measuring.svg';
+import GoogleCalendar from 'public/marketing/features/measuring2.svg';
+import OutlookCalendar from 'public/marketing/features/studying.svg';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -39,11 +39,11 @@ export function BentoMagicInboxCard({
       {...other}
     >
       <CardHeader>
-        <CardTitle className="text-xl font-semibold">Magic Inbox</CardTitle>
+        <CardTitle className="text-xl font-semibold">Impact & Programs</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <p className="line-clamp-2 text-sm text-muted-foreground">
-          Centralize all customer communications in one shared inbox.
+        Easy-to-use evaluation templates, Proven data collection strategies, Case studies & best practices
         </p>
         <div
           aria-hidden="true"
@@ -90,9 +90,9 @@ export function BentoMagicInboxCard({
             </div>
             {/* Text */}
             <div className="mt-px flex flex-row items-center gap-2 whitespace-nowrap rounded-lg bg-secondary px-3 py-1.5 text-sm text-foreground">
-              Chat
+            Measurement 
               <ArrowLeftRightIcon className="size-3 shrink-0" />
-              Email
+              Evaluation
             </div>
           </div>
         </div>

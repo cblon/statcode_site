@@ -30,7 +30,7 @@ export function BentoAnalyticsCard({
   return (
     <MotionCard
       className={cn(
-        'relative h-[300px] max-h-[300px] overflow-hidden',
+        'relative h-[330px] max-h-[330px] overflow-hidden',
         className
       )}
       {...other}

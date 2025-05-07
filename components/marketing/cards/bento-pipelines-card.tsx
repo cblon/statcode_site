@@ -46,7 +46,7 @@ export function BentoPipelinesCard({
   return (
     <MotionCard
       className={cn(
-        'relative h-[600px] max-h-[600px] overflow-hidden',
+        'relative h-fit overflow-hidden',
         className
       )}
       {...other}

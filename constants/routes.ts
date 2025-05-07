@@ -1,5 +1,6 @@
 export enum Routes {
   Root = '/',
+  ProblemsWeSolve ='/problems-we-solve',
   Contact = '/contact',
   Roadmap = 'https://achromatic.canny.io',
   Docs = '/docs',

@@ -93,7 +93,7 @@ export const MENU_LINKS = [
   // },
   {
     title: 'Problems We Solve',
-     href: '#',
+     href: Routes.ProblemsWeSolve,
     external: false
   },
   {
@@ -120,20 +120,16 @@ export const MENU_LINKS = [
 
 export const FOOTER_LINKS = [
   {
-    title: 'Product',
+    title: 'Services',
     links: [
-      { name: 'Feature 1', href: '#', external: false },
-      { name: 'Feature 2', href: '#', external: false },
-      { name: 'Feature 3', href: '#', external: false },
-      { name: 'Feature 4', href: '#', external: false },
-      { name: 'Feature 5', href: '#', external: false }
+      { name: 'Problems We Solve', href: Routes.ProblemsWeSolve, external: false },
+
     ]
   },
   {
     title: 'Resources',
     links: [
       { name: 'Contact', href: Routes.Contact, external: false },
-      { name: 'Roadmap', href: Routes.Roadmap, external: true },
       { name: 'Docs', href: Routes.Docs, external: false }
     ]
   },
@@ -142,45 +138,44 @@ export const FOOTER_LINKS = [
     links: [
       { name: 'Story', href: Routes.Story, external: false },
       { name: 'Blog', href: Routes.Blog, external: false },
-      { name: 'Careers', href: Routes.Careers, external: false }
     ]
   },
-  {
-    title: 'Legal',
-    links: [
-      { name: 'Terms of Use', href: Routes.TermsOfUse, external: false },
-      { name: 'Privacy Policy', href: Routes.PrivacyPolicy, external: false },
-      { name: 'Cookie Policy', href: Routes.CookiePolicy, external: false }
-    ]
-  }
+  // {
+  //   title: 'Legal',
+  //   links: [
+  //     { name: 'Terms of Use', href: Routes.TermsOfUse, external: false },
+  //     { name: 'Privacy Policy', href: Routes.PrivacyPolicy, external: false },
+  //     { name: 'Cookie Policy', href: Routes.CookiePolicy, external: false }
+  //   ]
+  // }
 ];
 
 export const SOCIAL_LINKS = [
-  {
-    name: 'X (formerly Twitter)',
-    href: '#',
-    icon: <XIcon className="size-4 shrink-0" />
-  },
+  // {
+  //   name: 'X (formerly Twitter)',
+  //   href: '#',
+  //   icon: <XIcon className="size-4 shrink-0" />
+  // },
   {
     name: 'LinkedIn',
     href: '#',
     icon: <LinkedInIcon className="size-4 shrink-0" />
   },
-  {
-    name: 'Facebook',
-    href: '#',
-    icon: <FacebookIcon className="size-4 shrink-0" />
-  },
-  {
-    name: 'Instagram',
-    href: '#',
-    icon: <InstagramIcon className="size-4 shrink-0" />
-  },
-  {
-    name: 'TikTok',
-    href: '#',
-    icon: <TikTokIcon className="size-4 shrink-0" />
-  }
+  // {
+  //   name: 'Facebook',
+  //   href: '#',
+  //   icon: <FacebookIcon className="size-4 shrink-0" />
+  // },
+  // {
+  //   name: 'Instagram',
+  //   href: '#',
+  //   icon: <InstagramIcon className="size-4 shrink-0" />
+  // },
+  // {
+  //   name: 'TikTok',
+  //   href: '#',
+  //   icon: <TikTokIcon className="size-4 shrink-0" />
+  // }
 ];
 
 export const DOCS_LINKS = [

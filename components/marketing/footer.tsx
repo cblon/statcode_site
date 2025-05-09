@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Logo } from '@/components/ui/logo';
 import { Separator } from '@/components/ui/separator';
 import { AppInfo } from '@/constants/app-info';
+import { SubscribeForm } from '../subscribe/subscribe-form';
 
 export function Footer(): React.JSX.Element {
   const handleSubscribe = (): void => {
@@ -62,10 +63,11 @@ export function Footer(): React.JSX.Element {
             ))}
           </div>
           <div className="mt-10 space-y-4 lg:col-span-2 xl:mt-0">
-            <h3 className="text-sm font-semibold text-foreground">
+            {/* <h3 className="text-sm font-semibold text-foreground">
               Subscribe to our newsletter
-            </h3>
-            <form className="py-2 sm:flex sm:max-w-md">
+            </h3> */}
+            <SubscribeForm />
+            {/* <form className="py-2 sm:flex sm:max-w-md">
               <div className="w-full min-w-0">
                 <Input
                   type="email"
@@ -81,7 +83,7 @@ export function Footer(): React.JSX.Element {
                   Subscribe
                 </Button>
               </div>
-            </form>
+            </form> */}
           </div>
         </div>
         <div className="mt-8 border-t pt-8">

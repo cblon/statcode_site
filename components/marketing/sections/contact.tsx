@@ -11,6 +11,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { ContactForm } from '@/components/contactus/contact-form';
 
 export function Contact(): React.JSX.Element {
 
@@ -65,7 +66,7 @@ export function Contact(): React.JSX.Element {
                 </div>
               </div>
             </div>
-            <Card className="order-1 mx-auto w-full max-w-lg shadow-lg lg:order-2 lg:w-1/2">
+            {/* <Card className="order-1 mx-auto w-full max-w-lg shadow-lg lg:order-2 lg:w-1/2">
               <CardContent className="flex flex-col gap-6 p-6 lg:p-10">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="col-span-2 grid w-full items-center gap-1.5 sm:col-span-1">
@@ -109,7 +110,8 @@ export function Contact(): React.JSX.Element {
                   Send message
                 </Button>
               </CardContent>
-            </Card>
+            </Card> */}
+             <ContactForm />
           </div>
         </div>
       </div>

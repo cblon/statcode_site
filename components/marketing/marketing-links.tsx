@@ -193,11 +193,18 @@ export const DOCS_LINKS = [
         href: '/docs/about',
         items: []
       },
-      {
-        title: 'Dependencies',
-        href: '/docs/dependencies',
-        items: []
-      },
+      // {
+      //   title: 'Dependencies',
+      //   href: '/docs/dependencies',
+      //   items: []
+      // },
+
+    ]
+  },
+    {
+    title: 'SQL',
+    icon: <BookIcon className="size-4 shrink-0 text-muted-foreground" />,
+    items: [
       {
         title: 'Basic SQL',
         href: '/docs/sql-basic',

@@ -12,21 +12,15 @@ export function StoryVision(): React.JSX.Element {
               Our vision
             </h2>
             <p className="text-2xl font-medium leading-relaxed md:text-3xl">
-              "CRM shouldn't just store relationships — it should actively help
-              you build better ones with AI."
+              "Simple shift, positive impact."
             </p>
           </div>
           <div className="space-y-6 text-base text-muted-foreground md:text-lg">
             <p>
-              Traditional CRMs were built for a different era. We're creating
-              the first true AI-native platform that automates the mundane and
-              amplifies what humans do best: building meaningful relationships.
+              The reality is, most organizations are collecting data, but they’re not evaluating it. They’re missing out on critical feedback loops that would allow them to adapt and improve in real-time. Without an evidence-based framework, data becomes just noise — and you’ll continue making decisions that feel right, but don’t actually move you forward.
             </p>
             <p>
-              By combining cutting-edge AI with decades of sales expertise,
-              we've created a CRM that actually helps you sell better —
-              predicting outcomes, suggesting next steps, and handling routine
-              tasks automatically.
+              I use a blend of systems thinking and mixed-method evaluation approaches to design data pipelines that aren’t just useful — they’re actionable. By integrating quantitative and qualitative data sources, I can provide you with a holistic view of program performance, identify causality, and guide you to outcomes that truly move the needle.
             </p>
           </div>
         </div>

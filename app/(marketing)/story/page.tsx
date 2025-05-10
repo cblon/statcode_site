@@ -17,8 +17,8 @@ export default function StoryPage(): React.JSX.Element {
     <>
       <StoryHero />
       <StoryVision />
-      <StoryTeam />
-      <StoryTimeline />
+      {/* <StoryTeam /> */}
+      {/* <StoryTimeline /> */}
       <StoryValues />
     </>
   );

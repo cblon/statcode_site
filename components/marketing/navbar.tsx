@@ -147,7 +147,7 @@ export function Navbar(): React.JSX.Element {
                 'rounded-xl'
               )}
             >
-              Contact me
+              Contact us
             </Link>
           </div>
         </nav>

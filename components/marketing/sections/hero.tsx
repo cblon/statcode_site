@@ -48,7 +48,7 @@ function HeroPill(): React.JSX.Element {
             orientation="vertical"
             className="mx-2"
           />
-          Official portfolio 🎉
+          Official portfolio coming soon 🎉
           <ChevronRightIcon className="ml-1.5 size-3 shrink-0 text-foreground transition-transform group-hover:translate-x-0.5" />
         </Badge>
       </Link>

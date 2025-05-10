@@ -44,7 +44,7 @@ export function Contact(): React.JSX.Element {
               </h3>
               <p className="text-muted-foreground lg:max-w-[80%]">
                 What problems are you having? 
-                We'll get back to you within 2 hours.
+                We'll get back to you soon.
               </p>
               <div className="space-y-4">
                 <h4 className="hidden text-lg font-medium lg:block">

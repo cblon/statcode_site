@@ -116,7 +116,7 @@ export function CookiePolicy(): React.JSX.Element {
           ))}
         </Accordion>
 
-        <div>
+        {/* <div>
           <CardTitle className="text-lg text-primary">
             Contact Information
           </CardTitle>
@@ -130,7 +130,7 @@ export function CookiePolicy(): React.JSX.Element {
               support@yourdomain.com
             </a>
           </p>
-        </div>
+        </div> */}
       </div>
     </GridSection>
   );

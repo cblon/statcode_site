@@ -45,6 +45,7 @@ export function Navbar(): React.JSX.Element {
               >
                 <NavigationMenuList>
                   {MENU_LINKS.map((item, index) =>
+                  // @ts-ignore
                     item.items ? (
                       null
                       // <NavigationMenuItem key={index}>

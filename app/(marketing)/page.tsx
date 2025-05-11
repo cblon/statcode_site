@@ -19,7 +19,7 @@ export default function IndexPage(): React.JSX.Element {
       {/* <Stats /> */}
       {/* <Testimonials /> */}
       <FAQ />
-      <CTA />
+      {/* <CTA /> */}
     </>
   );
 }

@@ -126,7 +126,7 @@ function MainMobileMenu({
     <div className="fixed inset-0 z-50 mt-[69px] overflow-y-auto bg-background animate-in fade-in-0">
       <div className="flex size-full flex-col items-start space-y-3 p-4">
         <div className="flex w-full flex-col gap-2">
-          <Link
+          {/* <Link
             href={Routes.SignUp}
             className={cn(
               buttonVariants({
@@ -138,8 +138,8 @@ function MainMobileMenu({
             onClick={onLinkClicked}
           >
             Start for free
-          </Link>
-          <Link
+          </Link> */}
+          {/* <Link
             href={Routes.Login}
             onClick={onLinkClicked}
             className={cn(
@@ -151,7 +151,7 @@ function MainMobileMenu({
             )}
           >
             Log in
-          </Link>
+          </Link> */}
         </div>
         <ul className="w-full">
           {MENU_LINKS.map((item) => (
@@ -159,6 +159,7 @@ function MainMobileMenu({
               key={item.title}
               className="py-2"
             >
+              {/* @ts-ignore */}
               {item.items ? (
                 <Collapsible
                   open={expanded[item.title.toLowerCase()]}
@@ -187,6 +188,7 @@ function MainMobileMenu({
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <ul className="mt-2 pl-4">
+                        {/* @ts-ignore */}
                       {item.items.map((subItem) => (
                         <li key={subItem.title}>
                           <Link

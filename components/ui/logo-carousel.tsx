@@ -135,7 +135,7 @@ function LogoCarousel({ columnCount = 2 }: { columnCount?: number }) {
   const allLogos: Logo[] = useMemo(
     () => [
       //   { name: "Apple", id: 1, img: AppleIcon },
-      { name: 'CEO Supabase', id: 2, img: SupabaseIcon },
+      { name: 'Supabase', id: 2, img: SupabaseIcon },
       { name: 'Vercel', id: 3, img: VercelIcon },
       { name: 'Ally', id: 5, img: AllyLogo },
       { name: 'Pierre', id: 6, img: PierreIcon },

@@ -25,7 +25,7 @@ export function Logo({
     >
       {!hideSymbol && (
         <div className="flex size-9 items-center justify-center p-1">
-          <div className="flex size-7 items-center justify-center rounded-md border-0 text-primary">
+          <div className="flex size-7 items-center justify-center rounded-md border-0 text-primary dark:bg-er">
           
 
           

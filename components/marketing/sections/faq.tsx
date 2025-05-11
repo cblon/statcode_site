@@ -14,7 +14,7 @@ import { Routes } from '@/constants/routes';
 const DATA = [
   {
     question: `How do we know if our programs are truly effective?`,
-    answer: `You’re probably used to reporting on outputs—number of meals served, number of people housed, number of job placements—but these numbers alone don’t tell you if the program is actually solving the problem. We’ve worked with organizations just like yours to shift from simple reporting to true impact measurement. Well-designed evaluation uses mixed-method approaches, including qualitative case studies and quantitative control-group comparisons, to determine causality. By implementing a logic model or theory of change, you can systematically connect activities to long-term impact. With this, you won’t just know that you’re doing work—you’ll know that it’s working. And you’ll have the data to prove it to your leadership, stakeholders, and your team.`
+    answer: `You’re probably used to reporting on outputs—number of customers/participants, number of events/locations, number of job placements—but these numbers alone don’t tell you if the program is actually solving the problem. We’ve worked with organizations just like yours to shift from simple reporting to true impact measurement. Well-designed evaluation uses mixed-method approaches, including qualitative case studies and quantitative control-group comparisons, to determine causality. By implementing a logic model or theory of change, you can systematically connect activities to long-term impact. With this, you won’t just know that you’re doing work—you’ll know that it’s working. And you’ll have the data to prove it to your leadership, stakeholders, and your team.`
   },
   {
     question: 'How can we get more funding by demonstrating our impact?',

@@ -10,19 +10,19 @@ const DATA = [
     icon: <TriangleAlertIcon className="size-5 shrink-0" />,
     title: 'Competition',
     description:
-      'Imagine seeing another nonprofit in your community getting all the funding, gaining recognition, and scaling their programs—while you’re still struggling to demonstrate real impact. Can you afford to stay in the dark?'
+      'Imagine seeing another organizations in your industry getting more funding, gaining recognition, and scaling—while you’re still struggling to demonstrate real impact. Can you afford to stay in the dark?'
   },
   {
     icon: <DollarSignIcon className="size-5 shrink-0" />,
     title: 'lack of Resources',
     description:
-      'Think about the last time you wished for more resources or better donor engagement. Now, imagine having the ability to achieve all of that with less effort—by simply understanding and using your data better.'
+      'Think about the last time you wished for more resources, better engagement or customer/participant life-cycle. Now, imagine having the ability to achieve all of that with less effort—by simply understanding and using your data better.'
   },
   {
     icon: <AlarmCheckIcon className="size-5 shrink-0" />,
     title: 'Time and Energy',
     description:
-      'Can you afford to be caught off guard by changes in the landscape? What happens when you’re asked to demonstrate the effectiveness of your programs on short notice, and you have no data to show? It’s not a matter of if change will come—it’s when. Will your nonprofit be ready?'
+      'Can you afford to be caught off guard by changes in the landscape? What happens when you’re asked to demonstrate the effectiveness of your programs on short notice, and you have no data to show? It’s not a matter of if change will come—it’s when. Will your organization be ready?'
   }
 ];
 

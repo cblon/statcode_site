@@ -93,7 +93,7 @@ export const MENU_LINKS = [
   // },
   {
     title: 'Problems We Solve',
-     href: Routes.ProblemsWeSolve,
+    href: Routes.ProblemsWeSolve,
     external: false
   },
   {
@@ -201,7 +201,7 @@ export const DOCS_LINKS = [
 
     ]
   },
-    {
+  {
     title: 'SQL',
     icon: <BookIcon className="size-4 shrink-0 text-muted-foreground" />,
     items: [
@@ -217,6 +217,18 @@ export const DOCS_LINKS = [
       }
     ]
   },
+    {
+    title: 'Snowflake + dbt',
+    icon: <BookIcon className="size-4 shrink-0 text-muted-foreground" />,
+    items: [
+      {
+        title: 'Snowflake setup',
+        href: '/docs/snowflake-dbt-sample-setup',
+        items: []
+      },
+
+    ]
+  },
   {
     title: 'Guides',
     icon: <BookIcon className="size-4 shrink-0 text-muted-foreground" />,
@@ -227,10 +239,21 @@ export const DOCS_LINKS = [
         items: []
       },
       {
+        title: 'Data Types: pros and cons',
+        href: '/docs/data-strengths-weaknesses',
+        items: []
+      },
+      // {
+      //   title: 'Snowflake + dbt',
+      //   href: '/docs/snowflake-dbt-sample-setup',
+      //   items: []
+      // },
+      {
         title: 'Using MDX',
         href: '/docs/using-mdx',
         items: []
       }
     ]
-  }
+  },
+
 ];

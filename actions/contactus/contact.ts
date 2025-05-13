@@ -87,8 +87,8 @@ export async function submitContactForm(prevState: State, formData: FormData): P
 
     // Send notification email to the site owner
     await sendNotificationEmail({
-        // process.env.ADMIN_EMAIL ||
-      recipient:  "caryleblondell@gmail.com",
+      // @ts-ignore
+      recipient:  process.env.ADMIN_EMAIL,
       name: fullName,
       email,
       message,

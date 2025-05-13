@@ -91,9 +91,11 @@ export async function subscribeToNewsletter(prevState: State, formData: FormData
         })
 
         // Send notification email to the admin
-        // process.env.ADMIN_EMAIL ||
-        const adminEmail =  "caryleblondell@gmail.com"
+       
+        const adminEmail =  process.env.ADMIN_EMAIL
+        
         await sendSubscriptionNotificationEmail({
+          // @ts-ignore
           recipient: adminEmail,
           email: validatedEmail,
           date: currentDate,

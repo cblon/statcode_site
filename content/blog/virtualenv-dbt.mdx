@@ -16,7 +16,7 @@ In this post, we'll explore why isolating your dbt environment with `virtualenv`
 
 dbt is released as a Python package, and like most Python tools, it relies on a specific set of dependencies. But those dependencies can change drastically between:
 
-- Major dbt versions (e.g., dbt v1.7 vs v1.8)
+- Major dbt versions (e.g., dbt v1.7 vs v1.9)
 - Adapter packages (e.g., `dbt-postgres` might not play nicely with `dbt-snowflake`)
 - Plugin tools like `dbt-expectations`, `dbt-utils`, or even IDE plugins
 
@@ -28,10 +28,24 @@ A virtual environment is a self-contained directory that contains its own Python
 
 ### Benefits:
 
-- **Version isolation**: Use dbt v1.5 in one project, v1.8 in another.
+- **Version isolation**: Use dbt v1.5 in one project, v1.9 in another.
 - **Adapter separation**: Keep `dbt-snowflake` in one env, `dbt-postgres` in another.
 - **No system pollution**: Avoid modifying your system Python install or clashing with other Python tools.
 - **Safe experimentation**: Test dbt plugins or custom macros without risk.
+
+With `virtualenv`, you can easily pin and install a specific version of dbt and its adapter, such as:
+
+```bash
+pip install dbt-snowflake==1.9.0
+````
+
+Or for PostgreSQL:
+
+```bash
+pip install dbt-postgres==1.9.0
+```
+
+This is especially helpful when working across teams or environments where version consistency is critical.
 
 ## How To Set Up dbt with `virtualenv`
 
@@ -39,15 +53,9 @@ A virtual environment is a self-contained directory that contains its own Python
 
 ```bash
 pip install virtualenv
-````
-
-### 2. Create a virtual environment:
-
-```bash
-virtualenv venv-dbt-snowflake
 ```
 
-Or, for a PostgreSQL setup:
+### 2. Create a virtual environment:
 
 ```bash
 virtualenv venv-dbt-postgres
@@ -55,27 +63,52 @@ virtualenv venv-dbt-postgres
 
 ### 3. Activate the environment:
 
+
+<Tabs defaultValue="macOS/Linux">
+  <TabsList>
+    <TabsTrigger value="macOS/Linux">**macOS/Linux:**</TabsTrigger>
+    <TabsTrigger value="Windows">**Windows:**</TabsTrigger>
+
+  </TabsList>
+  <TabsContent value="macOS/Linux">
 **macOS/Linux:**
 
 ```bash
-source venv-dbt-snowflake/bin/activate
+source venv-dbt-postgres/bin/activate
 ```
-
-**Windows:**
+  </TabsContent>
+  <TabsContent value="Windows">
+ **Windows:**
 
 ```bash
-.\venv-dbt-snowflake\Scripts\activate
+.\venv-dbt-postgres\Scripts\activate
 ```
+  </TabsContent>
 
-### 4. Install dbt and any adapters:
+</Tabs>
+
+
+
+
+
+
+### 4. Install dbt with the desired adapter:
 
 ```bash
-pip install dbt-snowflake
-# or
-pip install dbt-postgres
+pip install dbt-postgres==1.9.0
 ```
 
-### 5. Freeze your environment (optional but recommended):
+### 5. Verify it works:
+
+After installation, you can immediately test the setup by running:
+
+```bash
+dbt
+```
+
+You should see the dbt CLI output with available commands like `init`, `run`, `build`, etc., confirming that `dbt-postgres==1.9.0` is properly installed and working.
+
+### 6. Freeze your environment (optional but recommended):
 
 ```bash
 pip freeze > requirements.txt
@@ -87,7 +120,7 @@ Now your team or future self can recreate this exact environment with:
 pip install -r requirements.txt
 ```
 
-## Use `direnv` or `Makefile` for Easy Activation
+## Bonus: Use `direnv` or `Makefile` for Easy Activation
 
 If you work in multiple dbt projects, you can automate virtualenv activation with [direnv](https://direnv.net/) or create a simple `Makefile` to handle setup.
 
@@ -99,11 +132,14 @@ setup:
 	source .venv/bin/activate && pip install -r requirements.txt
 ```
 
-## Conclusion
 
 Using `virtualenv` when developing with dbt isn't just a nice-to-have—it's essential if you want to avoid version conflicts, adapter collisions, and broken environments. Whether you're a solo analytics engineer or working across teams, isolating your dbt setup with `virtualenv` ensures consistency, reproducibility, and peace of mind.
 
+With just a few commands, you can safely install and run any version of dbt and its adapter—like `dbt-postgres==1.9.0`—and immediately start working by running:
+
+```bash
+dbt
 ```
 
-Would you like this saved into a file or integrated into an existing MDX blog structure (like `content/blog/`)?
-```
+No more conflicts. No more surprises. Just clean, consistent dbt environments every time.
+

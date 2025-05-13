@@ -20,7 +20,11 @@ import {
 } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 
+import SensoryTreemapWrapper from '@/components/dataviz/SensoryTreemapWrapper';
+
 const components = {
+   SensoryTreemapWrapper,
+   
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(

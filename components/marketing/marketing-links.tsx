@@ -7,7 +7,9 @@ import {
   CuboidIcon,
   FileBarChartIcon,
   LayoutIcon,
-  PlayIcon
+  PlayIcon,
+  ChartLineIcon,
+  SnowflakeIcon
 } from 'lucide-react';
 
 import {
@@ -219,13 +221,26 @@ export const DOCS_LINKS = [
   },
     {
     title: 'Snowflake + dbt',
-    icon: <BookIcon className="size-4 shrink-0 text-muted-foreground" />,
+    icon: <SnowflakeIcon className="size-4 shrink-0 text-muted-foreground" />,
     items: [
       {
         title: 'Snowflake setup',
         href: '/docs/snowflake-dbt-sample-setup',
         items: []
       },
+
+    ]
+  },
+      {
+    title: 'Data Visualization',
+    icon: <ChartLineIcon className="size-4 shrink-0 text-muted-foreground" />,
+    items: [
+            {
+        title: 'Getting Started',
+        href: '/docs/why-data-visualization',
+        items: []
+      },
+
 
     ]
   },
@@ -243,11 +258,7 @@ export const DOCS_LINKS = [
         href: '/docs/data-strengths-weaknesses',
         items: []
       },
-      // {
-      //   title: 'Snowflake + dbt',
-      //   href: '/docs/snowflake-dbt-sample-setup',
-      //   items: []
-      // },
+
       {
         title: 'Using MDX',
         href: '/docs/using-mdx',

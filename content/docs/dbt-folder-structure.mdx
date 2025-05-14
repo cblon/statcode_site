@@ -1,0 +1,218 @@
+---
+title: Best Practices for Organizing Folders and Files in dbt Models
+description: A deep dive into how to structure your `models/` directory in dbt for clarity, scalability, and performance.
+---
+
+
+In any dbt project, your `models/` directory is the heart of your data transformation logic. As your project grows—from a handful of models to hundreds—**organization matters**.
+
+A clean, consistent structure leads to:
+- Better maintainability 
+- Faster onboarding for new teammates 
+- More scalable pipelines 
+
+This guide covers **best practices for structuring your `models/` folder**—from naming to folders to modeling layers.
+
+---
+
+##   Start with a Layered Folder Structure
+
+A best practice is to follow the **staging → intermediate → marts** model architecture.
+
+### Recommended Layout
+
+```
+
+models/
+│
+├── staging/
+│   └── source\_system\_1/
+│       └── stg\_orders.sql
+│
+├── intermediate/
+│   └── int\_customer\_metrics.sql
+│
+├── marts/
+│   ├── finance/
+│   │   └── fct\_revenue.sql
+│   ├── marketing/
+│   │   └── dim\_customers.sql
+
+```
+
+### Why It Works
+
+- **`staging/`**: One-to-one mapping to raw source tables, lightly cleaned and renamed.
+- **`intermediate/`**: Join, filter, or transform `staging/` logic into reusable business logic.
+- **`marts/`**: Final curated tables for business consumers, including fact and dimension tables.
+
+Each layer has a purpose and builds on the last—just like functions in code.
+
+---
+
+## Follow Naming Conventions
+
+Clear naming improves understanding and maintainability.
+
+| Layer | Prefix | Example |
+|-------|--------|---------|
+| Staging | `stg_` | `stg_customers.sql` |
+| Intermediate | `int_` | `int_customer_metrics.sql` |
+| Marts (Fact) | `fct_` | `fct_revenue.sql` |
+| Marts (Dimension) | `dim_` | `dim_customers.sql` |
+
+✅ Use **lowercase and underscores**  
+✅ Prefix with `stg_`, `int_`, `dim_`, or `fct_`  
+✅ Match the file name to the model name
+
+Avoid generic names like `final.sql` or `output_model.sql`.
+
+---
+
+##   Organize by Domain or Source
+
+Within each layer, organize models by **source system or business domain**.
+
+### Staging Example
+
+```
+
+models/
+├── staging/
+│   ├── stripe/
+│   │   ├── stg\_stripe\_\_charges.sql
+│   │   ├── stg\_stripe\_\_customers.sql
+│   ├── hubspot/
+│   │   ├── stg\_hubspot\_\_contacts.sql
+
+```
+
+### Marts Example
+
+```
+
+models/
+├── marts/
+│   ├── sales/
+│   │   ├── fct\_sales.sql
+│   │   ├── dim\_salesperson.sql
+│   ├── marketing/
+│   │   ├── fct\_campaigns.sql
+│   │   ├── dim\_channel.sql
+
+````
+
+This makes it easier to find and debug models related to a specific data source or business process.
+
+---
+
+## Use `dbt_project.yml` to Configure Folders
+
+You can define materialization defaults and tags for folders.
+
+```yaml
+models:
+  my_project:
+    staging:
+      +materialized: view
+      +tags: [staging]
+    intermediate:
+      +materialized: ephemeral
+      +tags: [intermediate]
+    marts:
+      +materialized: table
+      +tags: [marts]
+````
+
+This DRY pattern saves you from repeating `{{ config(...) }}` in every model.
+
+---
+
+## Write One Model per File
+
+**One model = one `.sql` file.** This keeps version control, testing, and debugging simple.
+
+Avoid giant files with multiple `SELECT` statements. Instead, compose models like:
+
+```sql
+-- stg_orders.sql
+-- int_orders_metrics.sql
+-- fct_orders.sql
+```
+
+Each should:
+
+* Contain a single `SELECT` statement
+* Be named to reflect the transformation
+* Chain together logically
+
+---
+
+## Co-Locate Tests and Documentation
+
+Follow this structure:
+
+```
+models/
+├── staging/
+│   ├── stripe/
+│   │   ├── stg_stripe__customers.sql
+│   │   ├── stg_stripe__customers.yml   <-- tests + docs
+```
+
+* Put schema-level tests (`unique`, `not_null`, `relationships`) next to the model
+* Document descriptions, owners, and tags in the same YAML file
+
+This helps with discoverability in dbt Docs.
+
+---
+
+## Version and Archive Models (Optional)
+
+For major data model changes:
+
+```
+models/
+├── archive/
+│   ├── fct_orders_v1.sql
+├── marts/
+│   ├── sales/
+│   │   ├── fct_orders_v2.sql
+```
+
+* You can version models (`_v1`, `_v2`) while transitioning consumers.
+* Move old models to `/archive` to retain lineage for audit/history.
+
+---
+
+##  Keep It Clean
+
+A few additional tips:
+
+* Avoid clutter: Remove deprecated models.
+* Don’t over-nest folders: Keep it 2-3 levels deep.
+* Group by **purpose**, not by arbitrary tags.
+
+---
+
+## Best Practices
+
+| Practice                                               | Description                    |
+| ------------------------------------------------------ | ------------------------------ |
+| ✅ Use `staging/`, `intermediate/`, and `marts/` layers | Clear logical separation       |
+| ✅ Follow naming conventions                            | `stg_`, `int_`, `dim_`, `fct_` |
+| ✅ Organize by domain or source                         | Easy navigation and debugging  |
+| ✅ One model per file                                   | Simple Git diffs and tests     |
+| ✅ Add schema YAML next to model                        | Local tests + documentation    |
+| ✅ Configure folders in `dbt_project.yml`               | DRY and centralized settings   |
+| ✅ Archive deprecated versions                          | Safe transitions               |
+| ✅ Avoid unnecessary nesting                            | Keep folder depth minimal      |
+
+---
+
+
+
+A messy `models/` folder slows down everyone. A clean structure accelerates everything—from onboarding to deployment.
+
+Treat your dbt models like application code. Structure, name, and document them with care. Your future self—and your teammates—will thank you. 
+

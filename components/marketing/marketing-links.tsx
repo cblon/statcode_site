@@ -219,7 +219,7 @@ export const DOCS_LINKS = [
       }
     ]
   },
-    {
+  {
     title: 'Snowflake + dbt',
     icon: <SnowflakeIcon className="size-4 shrink-0 text-muted-foreground" />,
     items: [
@@ -228,14 +228,40 @@ export const DOCS_LINKS = [
         href: '/docs/snowflake-dbt-sample-setup',
         items: []
       },
+      {
+        title: 'dbt folder structure',
+        href: '/docs/dbt-folder-structure',
+        items: []
+      },
+      {
+        title: 'Materializations',
+        href: '/docs/materializations',
+        items: []
+      },
+      {
+        title: 'CTEs',
+        href: '/docs/cte',
+        items: []
+      },
+      {
+        title: 'Snapshot',
+        href: '/docs/dbt-snapshot',
+        items: []
+      },
+      {
+        title: 'Test',
+        href: '/docs/dbt-test',
+        items: []
+      },
+
 
     ]
   },
-      {
+  {
     title: 'Data Visualization',
     icon: <ChartLineIcon className="size-4 shrink-0 text-muted-foreground" />,
     items: [
-            {
+      {
         title: 'Getting Started',
         href: '/docs/why-data-visualization',
         items: []
@@ -256,6 +282,17 @@ export const DOCS_LINKS = [
       {
         title: 'Data Types: pros and cons',
         href: '/docs/data-strengths-weaknesses',
+        items: []
+      },
+
+      {
+        title: 'Data Wrangling',
+        href: '/docs/data-wrangling',
+        items: []
+      },
+      {
+        title: 'Common dbt commands',
+        href: '/docs/dbt-common-commands',
         items: []
       },
 

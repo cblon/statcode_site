@@ -1,0 +1,195 @@
+---
+title: "Data Wrangling in R: A Practical Guide"
+description: "A conversational and practical overview of essential data wrangling practices in R using tidyverse."
+---
+
+import { Info } from 'lucide-react'
+
+# Data Wrangling: A Practical Guide
+
+Data wrangling is the unsung hero of every data project. It’s where the magic of making sense of messy data happens—and in **R**, you’ve got a whole toolbox to do it right. Let's go over the most useful wrangling techniques.
+---
+
+## 📥 1. Importing Data
+
+Before you wrangle, you’ve got to get the data in:
+
+* `read_csv()`, `read_excel()`, `read_json()` – These functions make it super easy to bring in structured data from files. They're smart about guessing column types, which saves you time.
+* `DBI::dbReadTable()` – If you're pulling from a SQL database, this one's your go-to.
+
+👉 **Why it matters:** Garbage in, garbage out. Clean imports set the stage for everything else.
+
+---
+
+## 🧹 2. Cleaning Column Names
+
+* `janitor::clean_names()` – Converts weird column names into something usable, like `Total Revenue` → `total_revenue`.
+* `rename()` – For fixing just a few column names.
+
+👉 **Why it matters:** Clean names mean cleaner code and fewer typos later on.
+
+---
+
+## 🧰 3. Filtering and Subsetting Rows
+
+* `filter(df, condition)` – Grab only what you need.
+* `slice(df, 1:10)` – Useful for previewing or working with sample data.
+
+👉 **Why it matters:** Focus on the rows that matter most. You don’t always need everything.
+
+---
+
+## 📏 4. Selecting and Reordering Columns
+
+* `select()` – Choose only the columns you care about.
+* `relocate()` – Move important columns to the front.
+
+👉 **Why it matters:** Keeps your workspace manageable and your logic focused.
+
+---
+
+## 🔄 5. Creating New Columns with `mutate()`
+
+* `mutate()` – Add new calculated columns.
+* `case_when()` – Like if-else, but cooler and vectorized.
+
+👉 **Why it matters:** New insights often come from combining existing data in new ways.
+
+---
+
+## 🔢 6. Type Conversion
+
+* `as.numeric()`, `as.factor()`, etc. – Convert your data to what it’s supposed to be.
+* `parse_number()` – Extract numbers from messy strings.
+
+👉 **Why it matters:** Math on strings? No thanks. Get your types right.
+
+---
+
+## 🔣 7. String Manipulation with `stringr`
+
+* `str_to_lower()`, `str_trim()` – Standardize text.
+* `str_replace()`, `str_detect()` – Clean and filter with regex.
+
+👉 **Why it matters:** Text data is often messy and inconsistent. These tools bring order.
+
+---
+
+## 📅 8. Date and Time Handling with `lubridate`
+
+* `ymd()`, `dmy()` – Convert strings to proper date objects.
+* `year()`, `month()` – Pull out components.
+
+👉 **Why it matters:** Time-based analysis depends on correct, consistent date formats.
+
+---
+
+## 🔄 9. Reshaping with `pivot_longer()` and `pivot_wider()`
+
+* `pivot_longer()` – Turn wide data into long format.
+* `pivot_wider()` – Go the other way.
+
+👉 **Why it matters:** Some analyses or visuals require a different layout. Reshape as needed.
+
+---
+
+## 🧾 10. Grouping and Summarizing
+
+* `group_by()` + `summarise()` – Aggregate your data by categories.
+* `count()` – Quick value counts.
+
+👉 **Why it matters:** Most insights are found in the group-level patterns.
+
+---
+
+## 🔢 11. Sorting and Ranking
+
+* `arrange()` – Sort your data.
+* `rank()`, `dense_rank()` – Assign positions or ranks.
+
+👉 **Why it matters:** Highlight top performers, trends, or outliers.
+
+---
+
+## 🤖 12. Handling Missing Data
+
+* `is.na()`, `drop_na()` – Detect or remove missing values.
+* `replace_na()` – Fill in gaps.
+* `coalesce()` – Smart defaults for missing values.
+
+👉 **Why it matters:** Missing data can break your analysis. Tidy it up before moving on.
+
+---
+
+## 🔗 13. Joining Data
+
+* `left_join()`, `inner_join()`, etc. – Combine tables by keys.
+
+👉 **Why it matters:** Real-world data is scattered across sources. Joins bring the pieces together.
+
+---
+
+## 🔄 14. Row-wise Operations
+
+* `rowwise()` + `mutate()` – Calculations across columns in a single row.
+
+👉 **Why it matters:** Not everything is column-wise. Sometimes, each row is its own little puzzle.
+
+---
+
+## 📦 15. Combining Data
+
+* `bind_rows()`, `bind_cols()` – Stack or merge tables.
+
+👉 **Why it matters:** You may get your data in parts. Combine them to see the whole picture.
+
+---
+
+## 🧽 16. Dealing with Duplicates and Outliers
+
+* `duplicated()`, `distinct()` – Spot and remove repeats.
+* Use `filter()` with `quantile()` to manage outliers.
+
+👉 **Why it matters:** Duplicates and extremes can skew your results. Keep them in check.
+
+---
+
+## 🧠 17. Recoding Values
+
+* `recode()`, `case_when()` – Replace values based on logic.
+* `fct_recode()` – For factor variables.
+
+👉 **Why it matters:** Sometimes categories need to be merged, renamed, or reclassified.
+
+---
+
+## 🧩 18. Nesting & Unnesting
+
+* `nest()`, `unnest()` – Work with grouped data as mini-dataframes.
+* `map()` – Apply functions to nested data.
+
+👉 **Why it matters:** Allows more complex workflows without breaking things into separate tables.
+
+---
+
+## 🔁 19. Functional Programming for Wrangling
+
+* `map()`, `walk()`, `across()` – Repeat yourself the smart way.
+
+👉 **Why it matters:** Repetition is inevitable. These help you automate cleanly.
+
+---
+
+## ✅ 20. Inspecting and Validating Data
+
+* `str()`, `summary()`, `glimpse()` – Know what you're working with.
+* `skimr::skim()` – For beautiful summaries.
+* `assertthat` or `checkmate` – Add sanity checks.
+
+👉 **Why it matters:** A quick check now saves hours of debugging later.
+
+---
+
+> <Info className="inline w-4 h-4 mr-1" /> Think of data wrangling as prepping ingredients before cooking. Clean, organized ingredients make the meal (your analysis) come together beautifully.
+
+Want some hands-on examples with real datasets? Just ask!

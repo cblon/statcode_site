@@ -1,0 +1,250 @@
+---
+title: Common dbt CLI Commands
+description: A list of commonly used dbt CLI commands with examples and sample outputs.
+---
+
+
+
+## `dbt run`
+
+The workhorse command that **executes your models** and creates views/tables in your data warehouse.
+
+### Basic Usage
+
+```bash
+dbt run
+````
+
+**Output:**
+
+```
+12:00:00 | Concurrency: 4 threads (target='dev')
+12:00:00 | 
+12:00:00 | 1 of 5 START model my_project.stg_orders.... [RUN]
+12:00:01 | 1 of 5 OK created model my_project.stg_orders [SUCCESS 1 in 1.00s]
+...
+12:00:05 | Completed successfully
+```
+
+---
+
+## `dbt run --select`
+
+Run only specific models.
+
+### Example 1: Single model
+
+```bash
+dbt run --select my_first_dbt_model
+```
+
+### Example 2: A staging model
+
+```bash
+dbt run --select stg_reviews
+```
+
+### Example 3: A model by fully qualified name (FQN)
+
+```bash
+dbt run --select analytics.dim_venues
+```
+
+### Example 4: A source path or group
+
+```bash
+dbt run --select src.src_reviews
+```
+
+**Output:**
+
+```
+12:02:00 | START model analytics.dim_venues [RUN]
+12:02:01 | OK created model analytics.dim_venues [SUCCESS 1 in 1.01s]
+```
+
+---
+
+##  `dbt run --full-refresh`
+
+For **incremental models**, this **drops and rebuilds** them entirely.
+
+```bash
+dbt run --full-refresh
+```
+
+**With filters:**
+
+```bash
+dbt run --select dim_venues --full-refresh
+```
+
+**Output:**
+
+```
+12:03:00 | Full refresh requested for: 1 incremental model
+12:03:01 | Dropping table analytics.dim_venues...
+12:03:02 | Creating table analytics.dim_venues...
+```
+
+---
+
+##  `dbt test`
+
+Runs **schema and data tests** on your models.
+
+```bash
+dbt test
+```
+
+### Select a specific model:
+
+```bash
+dbt test --select dim_venues
+```
+
+**Output:**
+
+```
+12:04:00 | START test not_null_dim_venues_venue_id.... [RUN]
+12:04:00 | PASS not_null_dim_venues_venue_id [PASS in 0.5s]
+12:04:00 | PASS unique_dim_venues_venue_id [PASS in 0.3s]
+```
+
+---
+
+##  `dbt test --select` (Examples)
+
+```bash
+dbt test --select test
+```
+
+or
+
+```bash
+dbt test --select dim.dim_listings_cleansed
+```
+
+You can also run tests for a folder or group of models:
+
+```bash
+dbt test --select dim.*
+```
+
+---
+
+##  `dbt seed`
+
+Loads CSV files from the `data/` folder into your warehouse.
+
+```bash
+dbt seed
+```
+
+**Output:**
+
+```
+12:05:00 | START seed file seed_states.csv [RUN]
+12:05:01 | OK loaded seed file seed_states.csv [INSERT 50 rows in 0.8s]
+```
+
+---
+
+##  `dbt source freshness`
+
+Check **freshness** of your raw source data.
+
+```bash
+dbt source freshness
+```
+
+**Output:**
+
+```
+12:06:00 | freshness of source "src_reviews" is 2 hours (warn after: 12, error after: 24)
+12:06:00 | PASS freshness checks
+```
+
+Set thresholds in `sources.yml` using `freshness: warn_after:` and `error_after:`.
+
+---
+
+##  `dbt compile`
+
+Compiles all models (applies Jinja) into SQL in the `target/` directory.
+
+```bash
+dbt compile
+```
+
+**Output:**
+
+```
+12:07:00 | Compiled 20 models
+```
+
+Great for debugging or previewing final SQL.
+
+---
+
+##  `dbt list` (Bonus!)
+
+Lists models or nodes that match filters. Super useful for scripting or CI/CD.
+
+```bash
+dbt list --select tag:core
+```
+
+```bash
+dbt list --select path:models/marts/finance/
+```
+
+---
+
+##  More `--select` Examples
+
+```bash
+# Run all dim models
+dbt run --select dim.*
+
+# Run everything in marts folder
+dbt run --select path:models/marts/
+
+# Run all models downstream of a source
+dbt run --select +src_reviews
+
+# Run all models upstream of a fact table
+dbt run --select fct.fct_reviews+
+
+# Run only tests, not models
+dbt test --exclude tag:deprecated
+```
+
+---
+
+
+Here’s a quick reference table:
+
+| Command                       | Purpose                      |
+| ----------------------------- | ---------------------------- |
+| `dbt run`                     | Build all models             |
+| `dbt run --select model_name` | Run a specific model         |
+| `dbt test`                    | Run all data tests           |
+| `dbt seed`                    | Load CSVs into warehouse     |
+| `dbt compile`                 | Generate final SQL           |
+| `dbt source freshness`        | Check source data freshness  |
+| `dbt run --full-refresh`      | Rebuild incremental models   |
+| `dbt list`                    | List nodes by tag, path, etc |
+
+---
+
+ Use `--select` and `--exclude` together for precise control.
+
+```bash
+dbt run --select tag:core --exclude dim_venues
+```
+
+This helps when debugging or targeting small sections of your DAG.
+
+
+

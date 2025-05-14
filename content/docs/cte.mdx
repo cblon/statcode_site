@@ -1,0 +1,199 @@
+---
+title: Common Table Expressions (CTEs)
+description: Differences Between Quantitative and Qualitative Data
+---
+
+
+Common Table Expressions (CTEs) are one of the best tools in SQL for writing readable, maintainable, and reusable queries. If you've ever stared at a long, nested SQL statement and thought, "there has to be a better way"—CTEs are it.
+
+Let’s walk through how to use CTEs step by step, with real-world use cases like `SELECT`, `INSERT`, `UPDATE`, and integrating with stored procedures, functions, triggers, and views.
+
+---
+
+## What is a CTE?
+
+A **Common Table Expression** is a temporary result set, defined by a `WITH` clause, that you can reference in a subsequent query. Think of it like defining a named subquery at the top of your SQL—clean, readable, and reusable.
+
+```sql
+WITH cte_name AS (
+  -- some SELECT statement
+)
+SELECT * FROM cte_name;
+````
+
+---
+
+## Why Use a CTE?
+
+* ✅ Improves **readability**: Break down complex queries into logical steps.
+* ✅ Encourages **reuse**: Use the CTE name instead of repeating logic.
+* ✅ Makes **debugging** easier: Isolate logic during development.
+* ✅ Enables **modular queries**: Like functions in programming.
+
+---
+
+##  Using CTEs the Right Way
+
+Let’s walk through the process of writing a CTE in three clear steps.
+
+---
+
+### ✅ Create the Raw Table Expression
+
+The CTE itself is always a **SELECT** statement. Here's a simple example that filters a raw table:
+
+```sql
+WITH active_customers AS (
+  SELECT id, name, email
+  FROM customers
+  WHERE status = 'active'
+)
+```
+
+This `active_customers` CTE gives us a clean alias for later use.
+
+---
+
+### ✅ Select from the CTE
+
+Once the CTE is defined, you can use it just like a table:
+
+```sql
+SELECT *
+FROM active_customers
+ORDER BY name;
+```
+
+This is much more readable than repeating the `SELECT` and `WHERE` logic inline.
+
+---
+
+### ✅ Chain CTEs for Complex Logic
+
+You can define multiple CTEs in one `WITH` clause and build up your logic step by step:
+
+```sql
+WITH active_customers AS (
+  SELECT id, name FROM customers WHERE status = 'active'
+),
+recent_orders AS (
+  SELECT customer_id, order_date
+  FROM orders
+  WHERE order_date > CURRENT_DATE - INTERVAL '30 days'
+)
+SELECT ac.name, ro.order_date
+FROM active_customers ac
+JOIN recent_orders ro ON ac.id = ro.customer_id;
+```
+
+ This approach is **easy to read and maintain**, especially compared to deeply nested subqueries.
+
+---
+
+## CTEs with INSERT, UPDATE, and DELETE
+
+CTEs aren’t just for reading data—you can use them with `INSERT`, `UPDATE`, and `DELETE` too.
+
+---
+
+###  Insert with a CTE
+
+```sql
+WITH new_users AS (
+  SELECT id, email FROM staging_users WHERE imported = true
+)
+INSERT INTO users (id, email)
+SELECT id, email FROM new_users;
+```
+
+---
+
+### Update with a CTE
+
+```sql
+WITH flagged_orders AS (
+  SELECT id FROM orders WHERE total > 1000
+)
+UPDATE orders
+SET priority = 'high'
+WHERE id IN (SELECT id FROM flagged_orders);
+```
+
+---
+
+###  Delete with a CTE
+
+```sql
+WITH expired_sessions AS (
+  SELECT session_id FROM sessions WHERE last_active < CURRENT_DATE - INTERVAL '90 days'
+)
+DELETE FROM sessions
+WHERE session_id IN (SELECT session_id FROM expired_sessions);
+```
+
+---
+
+## Bonus: Use CTEs in Views, Functions, and More
+
+CTEs are supported inside many SQL structures, which helps keep everything modular.
+
+---
+
+###  CTEs in Views
+
+```sql
+CREATE VIEW high_value_customers AS
+WITH cte AS (
+  SELECT id, name, total_spent FROM customers WHERE total_spent > 5000
+)
+SELECT * FROM cte;
+```
+
+This way, the logic lives in one place and can be reused by anyone querying the view.
+
+---
+
+###  CTEs in Functions or Stored Procedures
+
+```sql
+CREATE OR REPLACE FUNCTION get_recent_orders()
+RETURNS TABLE(customer_id INT, order_date DATE) AS $$
+BEGIN
+  RETURN QUERY
+  WITH recent_orders AS (
+    SELECT customer_id, order_date
+    FROM orders
+    WHERE order_date > CURRENT_DATE - INTERVAL '7 days'
+  )
+  SELECT * FROM recent_orders;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+---
+
+###  CTEs in Triggers
+
+Within a trigger function, CTEs can be used to make logic more readable:
+
+```sql
+CREATE OR REPLACE FUNCTION log_order_update()
+RETURNS TRIGGER AS $$
+BEGIN
+  WITH updated_order AS (
+    SELECT NEW.id AS order_id, NEW.status AS new_status
+  )
+  INSERT INTO order_audit (order_id, change)
+  SELECT order_id, new_status FROM updated_order;
+
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+---
+
+
+
+Happy querying! 
+

@@ -1,0 +1,242 @@
+---
+title: dbt Tests
+description: A look into generic tests and how to create custom singular tests for robust data validation.
+---
+
+Testing is a core part of building reliable data models in dbt. This document explores:
+
+- The four **built-in generic tests**
+- How and when to use them
+- Creating **singular tests** for custom logic
+- Real-world examples and expected output
+
+---
+
+##  What Are Generic Tests in dbt?
+
+**Generic tests** are pre-built reusable macros that you can apply to models, columns, or sources using simple YAML configurations.
+
+dbt ships with 4 built-in generic tests:
+
+| Test Name     | Description                                         |
+|---------------|-----------------------------------------------------|
+| `not_null`    | Ensures no NULL values exist in the column          |
+| `unique`      | Ensures all values in the column are unique         |
+| `accepted_values` | Ensures all column values are from a defined list |
+| `relationships` | Ensures referential integrity between two tables   |
+
+---
+
+##  Using Generic Tests: Syntax and Examples
+
+### Example Model: `dim_users`
+
+```sql
+-- models/dim_users.sql
+SELECT 
+  id, 
+  email, 
+  status 
+FROM {{ ref('stg_users') }}
+````
+
+### YAML Configuration
+
+```yaml
+# models/dim_users.yml
+
+version: 2
+
+models:
+  - name: dim_users
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['active', 'inactive', 'banned']
+
+      - name: email
+        tests:
+          - not_null
+```
+
+### Breakdown
+
+#### `not_null`
+
+Ensures column has no `NULL` values.
+
+✅ Valid:
+
+| id |
+| -- |
+| 1  |
+| 2  |
+
+❌ Invalid:
+
+| id   |
+| ---- |
+| 1    |
+| null |
+
+---
+
+#### `unique`
+
+Ensures column values are distinct.
+
+✅ Valid:
+
+| id |
+| -- |
+| 1  |
+| 2  |
+
+❌ Invalid:
+
+| id |
+| -- |
+| 1  |
+| 1  |
+
+---
+
+#### `accepted_values`
+
+Ensures all values are within the allowed list.
+
+✅ Valid:
+
+| status |
+| ------ |
+| active |
+| banned |
+
+❌ Invalid:
+
+| status  |
+| ------- |
+| paused  |
+| unknown |
+
+---
+
+#### `relationships`
+
+Ensures a column's values exist in a referenced table.
+
+```yaml
+- name: orders
+  columns:
+    - name: user_id
+      tests:
+        - relationships:
+            to: ref('dim_users')
+            field: id
+```
+
+This ensures every `user_id` in `orders` exists in `dim_users.id`.
+
+---
+
+##  What Are Singular Tests?
+
+**Singular tests** are custom SQL queries that return failing rows. If **any rows are returned**, the test fails.
+
+### Directory and Naming
+
+Place singular tests inside the `tests/` folder.
+
+```bash
+tests/
+└── test_users_have_email.sql
+```
+
+### Example Test
+
+```sql
+-- tests/test_users_have_email.sql
+
+SELECT *
+FROM {{ ref('dim_users') }}
+WHERE email IS NULL
+```
+
+### Add to `dbt_project.yml`
+
+If you follow standard naming, no special registration is required.
+
+---
+
+##  When to Use Generic vs. Singular
+
+| Test Type     | Use For                              | Advantage                                  |
+| ------------- | ------------------------------------ | ------------------------------------------ |
+| Generic Test  | Common checks (nulls, uniqueness)    | Fast to write and automatically documented |
+| Singular Test | Custom business logic or complex SQL | Fully customizable                         |
+
+---
+
+##  dbt Test Output
+
+When you run `dbt test`, the output will include a summary:
+
+```
+$ dbt test
+
+PASS tests.test_not_null_dim_users_id ....................... PASS in 0.13s
+FAIL tests.test_users_have_email ............................ FAIL in 0.22s
+
+Failure in test test_users_have_email (tests/test_users_have_email.sql)
+  Got 3 results, expected 0
+```
+
+Each failing test will list the violating rows.
+
+---
+
+## Tips and Best Practices
+
+* Add generic tests via YAML in the same file as your model
+* Write singular tests for business rules (e.g. "users must have an email")
+* Include relationships tests for foreign keys
+* Use `--store-failures` flag to output failed rows to tables for inspection
+
+---
+
+##  Summary
+
+| Feature      | Generic Test                   | Singular Test                |
+| ------------ | ------------------------------ | ---------------------------- |
+| Usage        | YAML                           | Raw SQL in `tests/`          |
+| Customizable | Limited to parameters          | Fully customizable logic     |
+| Output       | Auto-generated failure summary | Returns rows on failure      |
+| Good For     | Common patterns                | Business rules or edge cases |
+
+---
+
+##  Run All Tests
+
+To execute all configured tests:
+
+```bash
+dbt test
+```
+
+To run tests for a specific model:
+
+```bash
+dbt test --select dim_users
+```
+
+To store failed test output as a table:
+
+```bash
+dbt test --store-failures
+```

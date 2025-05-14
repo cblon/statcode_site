@@ -1,0 +1,179 @@
+---
+title: Understanding Type 2 Slowly Changing Dimensions in dbt with Snapshots
+description: A conversational guide to implementing Type 2 SCDs in dbt using snapshots, with examples using listings and hosts models.
+---
+
+
+Let’s talk about **Type-2 Slowly Changing Dimensions (SCDs)**—those sneaky little changes in your source data that don’t overwrite old values, but instead **track history**.
+
+This section is for anyone who’s wondered:
+- *How do I capture changes to records in dbt over time?*
+- *How do snapshots work?*
+- *How can I build reliable dimensions (like `dim_listings`) that reflect the latest state while preserving the past?*
+
+---
+
+## What Is a Type-2 Slowly Changing Dimension?
+
+In a Type-2 SCD, **every change to a tracked field creates a new row** in your dimension table, and we **retain historical versions**.
+
+Let’s say you have a listing like this:
+
+| listing_id | host_id | price | updated_at         |
+|------------|---------|-------|--------------------|
+| 123        | 1001    | 200   | 2023-01-01 10:00:00 |
+
+Then the price changes...
+
+| listing_id | host_id | price | updated_at         |
+|------------|---------|-------|--------------------|
+| 123        | 1001    | 250   | 2023-02-15 09:00:00 |
+
+We want both versions saved. Type-2 SCD captures this with **valid_from** and **valid_to** fields like:
+
+| listing_id | host_id | price | valid_from         | valid_to           | dbt_valid_to |
+|------------|---------|-------|--------------------|--------------------|--------------|
+| 123        | 1001    | 200   | 2023-01-01 10:00:00 | 2023-02-15 09:00:00 | [set by dbt] |
+| 123        | 1001    | 250   | 2023-02-15 09:00:00 | null               | null         |
+
+This is where `dbt snapshots` come in.
+
+---
+
+##  How Snapshots Work in dbt
+
+Snapshots in dbt allow you to **track changes over time** in your source tables.
+
+Let’s break it down.
+
+### Step 1: Create the snapshot file
+
+Place this inside your `snapshots/` folder:
+
+```
+
+snapshots/
+└── scd\_raw\_listings.sql
+
+````
+
+### Step 2: Define the snapshot
+
+Here’s a real-world example using the `timestamp` strategy:
+
+```jinja
+{% snapshot scd_raw_listings %} 
+
+{{
+   config(
+       target_schema='DEV',
+       unique_key='id',
+       strategy='timestamp',
+       updated_at='updated_at',
+       invalidate_hard_deletes=True
+   )
+}}
+
+SELECT * 
+FROM {{ source('airbnb', 'listings') }}
+
+{% endsnapshot %}
+````
+
+Let’s unpack this:
+
+* `unique_key='id'`: tracks each record by the listing's unique ID
+* `strategy='timestamp'`: checks the `updated_at` timestamp for changes
+* `invalidate_hard_deletes=True`: marks a record as invalid if it disappears from the source
+* `target_schema='DEV'`: stores the snapshot output in the `DEV` schema
+
+### Expected Output Table
+
+| id  | host\_id | price | updated\_at         | dbt\_valid\_from    | dbt\_valid\_to      |
+| --- | -------- | ----- | ------------------- | ------------------- | ------------------- |
+| 123 | 1001     | 200   | 2023-01-01 10:00:00 | 2023-01-01 10:00:00 | 2023-02-15 09:00:00 |
+| 123 | 1001     | 250   | 2023-02-15 09:00:00 | 2023-02-15 09:00:00 | null                |
+
+---
+
+##  dbt Detects Changes Automatically
+
+Whether you're using `check` or `timestamp`, dbt handles versioning for you behind the scenes. Each new row includes a `dbt_valid_from` and `dbt_valid_to` that tells you the time range that version was valid.
+
+If a row disappears from the source, dbt closes out its `dbt_valid_to` when `invalidate_hard_deletes=True` is set.
+
+---
+
+##  Building `dim_listings` from Snapshots
+
+You can now build dimensions that always use the **latest version** of your data.
+
+```sql
+-- models/dim/dim_listings.sql
+
+WITH latest_listings AS (
+  SELECT *
+  FROM {{ ref('scd_raw_listings') }}
+  WHERE dbt_valid_to IS NULL
+)
+
+SELECT
+  id as listing_id,
+  host_id,
+  price
+FROM latest_listings
+```
+
+This model is clean, readable, and based on snapshot logic—so it’s historically aware.
+
+---
+
+##  Enriching with Hosts
+
+Join in data from a cleaned host model like `dim_hosts_cleansed`:
+
+```sql
+-- models/dim/dim_listings_w_hosts.sql
+
+WITH latest_listings AS (
+  SELECT *
+  FROM {{ ref('scd_raw_listings') }}
+  WHERE dbt_valid_to IS NULL
+),
+
+hosts AS (
+  SELECT *
+  FROM {{ ref('dim_hosts_cleansed') }}
+)
+
+SELECT
+  l.id AS listing_id,
+  l.host_id,
+  h.host_name,
+  l.price
+FROM latest_listings l
+LEFT JOIN hosts h
+  ON l.host_id = h.host_id
+```
+
+---
+
+##  Strategy Comparison Table
+
+| Strategy    | Use When...                          | Key Configs                | Notes                             |
+| ----------- | ------------------------------------ | -------------------------- | --------------------------------- |
+| `check`     | You want to track *specific* columns | `check_cols`               | Good when `updated_at` is missing |
+| `timestamp` | You have an `updated_at` timestamp   | `updated_at`, `unique_key` | Simpler to set up                 |
+
+---
+
+
+dbt snapshots are an underrated superpower.
+
+* They track change history without writing complex SQL.
+* They power SCDs for dimensions like `listings`, `products`, or `employees`.
+* They keep your reporting **accurate and auditable**.
+
+And best of all—you can build clean models like `dim_listings_w_hosts` that work **on top** of them with zero hassle.
+
+

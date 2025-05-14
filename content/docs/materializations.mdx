@@ -1,0 +1,237 @@
+---
+title: A Step-by-Step Guide to Materializations in dbt
+description: Learn how dbt materializations work—from ephemeral to incremental—with practical examples to help you choose the right one for your models.
+---
+
+
+When you write a model in dbt, you might think of it as a SQL file that creates a table or view. But **how** it gets created—whether it’s rebuilt every run, appended incrementally, or never actually created—is defined by something called a **materialization**.
+
+Materializations are one of dbt’s most powerful features. They give you fine-grained control over **when and how** a model is created in your data warehouse.
+
+In this section, we’ll walk through:
+
+- What materializations are
+- The 4 built-in types
+- When to use each one
+- Examples to help you get started
+
+---
+
+## What is a Materialization?
+
+A **materialization** in dbt is a strategy for how your SQL model becomes something in your database—like a table, view, or temporary result.
+
+You specify the materialization in your model’s config:
+
+```sql
+{{ config(materialized='view') }}
+````
+
+Under the hood, dbt wraps your SQL in different logic depending on the materialization.
+
+---
+
+##  Understand the Built-In Materializations
+
+There are **four core materializations** in dbt:
+
+1. [`view`](#1-view)
+2. [`table`](#2-table)
+3. [`incremental`](#3-incremental)
+4. [`ephemeral`](#4-ephemeral)
+
+Let’s explore each one.
+
+---
+
+### 1. `view`: Lightweight and Dynamic
+
+```sql
+{{ config(materialized='view') }}
+```
+
+A **view** is a saved SQL query in your warehouse. It runs fresh every time you query it.
+
+✅ Pros:
+
+* Fast to build
+* Good for logic that changes often
+* Keeps warehouse storage costs low
+
+🚫 Cons:
+
+* Slower to query large datasets (re-runs logic every time)
+* No persistent data storage
+
+**Use when:**
+
+* You want fresh data at query time
+* The logic is light and easy to recompute
+
+---
+
+### 2. `table`: Physical and Static
+
+```sql
+{{ config(materialized='table') }}
+```
+
+A **table** is a physical object in your warehouse. dbt will **drop and recreate** it on every run (unless configured otherwise).
+
+✅ Pros:
+
+* Fast query performance
+* Useful for heavy aggregations or large joins
+
+🚫 Cons:
+
+* Rebuilt every run by default (expensive for big data)
+* Uses warehouse storage
+
+**Use when:**
+
+* You want to cache expensive logic
+* The data doesn’t need to be real-time
+
+---
+
+### 3. `incremental`: Append or Merge
+
+```sql
+{{ config(materialized='incremental') }}
+
+SELECT * FROM source_table
+WHERE updated_at > (SELECT MAX(updated_at) FROM {{ this }})
+```
+
+**Incremental** models are designed to only **process new or changed data**.
+
+✅ Pros:
+
+* Super efficient for large datasets
+* Ideal for time-series or slowly changing data
+
+🚫 Cons:
+
+* More complex logic to write and maintain
+* Must use `is_incremental()` logic blocks
+
+**Use when:**
+
+* Your data grows over time (e.g. logs, transactions)
+* You want to avoid rebuilding huge tables
+
+**Example:**
+
+```sql
+{{ config(materialized='incremental') }}
+
+SELECT *
+FROM raw_orders
+{% if is_incremental() %}
+WHERE order_date > (SELECT MAX(order_date) FROM {{ this }})
+{% endif %}
+```
+
+---
+
+### 4. `ephemeral`: Never Materialized
+
+```sql
+{{ config(materialized='ephemeral') }}
+```
+
+An **ephemeral** model is **not created** in your warehouse. Instead, dbt **inlines** the SQL into downstream models.
+
+✅ Pros:
+
+* Zero cost in the warehouse
+* Great for reuse of small subqueries
+
+🚫 Cons:
+
+* Can cause long, nested queries
+* Hard to debug in SQL clients
+
+**Use when:**
+
+* You want to reuse logic across multiple models
+* The logic is lightweight
+
+---
+
+## Step 2: Choose the Right Materialization
+
+| Use Case                   | Recommended Materialization      |
+| -------------------------- | -------------------------------- |
+| Aggregating data weekly    | `table` or `incremental`         |
+| Fresh data needed daily    | `view`                           |
+| Reusable subquery logic    | `ephemeral`                      |
+| Millions of rows daily     | `incremental`                    |
+| Joining 5 different tables | `table` or `ephemeral` for parts |
+
+---
+
+## Step 3: Set the Materialization
+
+Set it at the top of your model file:
+
+```sql
+-- models/orders_summary.sql
+
+{{ config(materialized='incremental') }}
+
+SELECT ...
+```
+
+Or globally in `dbt_project.yml`:
+
+```yaml
+models:
+  your_project:
+    +materialized: table
+```
+
+This sets the default, which individual models can override.
+
+---
+
+## Custom Materializations
+
+You can even **create your own** materializations (e.g., for slowly changing dimensions or CDC logic). These are written in Jinja using dbt’s macro system.
+
+Example directory:
+
+```
+macros/
+  materializations/
+    my_custom_materialization.sql
+```
+
+Custom materializations give you **fine control** over create/drop logic, audit logging, and more.
+
+---
+
+## Combine with Hooks and Tests
+
+Materializations become more powerful when paired with:
+
+* **Hooks** (e.g. run a command after building a table)
+* **Tests** (e.g. make sure an incremental model doesn’t duplicate rows)
+* **Snapshots** (capture row-level changes over time)
+
+```sql
+{{ config(
+  materialized='incremental',
+  on_run_end='CALL update_stats({{ this }})'
+) }}
+```
+
+---
+
+
+
+
+Happy modeling! 
+
+
